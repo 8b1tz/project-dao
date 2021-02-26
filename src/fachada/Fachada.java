@@ -48,7 +48,9 @@ public class Fachada {
 			DAO.rollback();	
 			throw new Exception("Video inexistente");
 		}
-		v.adicionar(new Assunto(palavra));
+		Assunto a = new Assunto(palavra);
+		v.adicionar(a);
+		daoassunto.update(a);
 		daovideo.update(v);
 		DAO.commit();
 	}
@@ -62,6 +64,7 @@ public class Fachada {
 		}
 		Visualizacao visu = new Visualizacao(id++, nota, new Usuario(email), v);
 		v.adicionar(visu);
+		daovideo.update(v);
 		daovisualizacao.create(visu);
 		DAO.commit();
 		return visu;
