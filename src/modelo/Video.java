@@ -31,6 +31,10 @@ public class Video {
 	public List<Assunto> getListaAssuntos() {
 		return assuntos;
 	}
+	public String getLink() {
+		return link;
+	}
+
 
 	@Override
 	public String toString() {
@@ -47,6 +51,7 @@ public class Video {
 		}
 		return texto;
 	}
+
 
 
 	

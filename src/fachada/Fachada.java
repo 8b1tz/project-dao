@@ -107,15 +107,32 @@ public class Fachada {
 		}
 		return listaVideosAssunto;
 	}
-	/*
+	
 	public static List<Video> consultarVideosPorUsuario(String email){
-		return daovideo.readPorUsuario();
+		List<Video> listaVideosUsuario = new ArrayList<Video>();
+		List<Visualizacao> todosVisualizacaos = listarVisualizacoes();
+		for (Visualizacao visualizacao : todosVisualizacaos) {
+				if (visualizacao.getUsuario().getEmail() == email) {
+					listaVideosUsuario.add(visualizacao.getVideo());
+				}
 		}
+		return listaVideosUsuario;
+	}
+		
+
 	
 	public static List<Usuario> consultarUsuariosPorVideo(String link){
-		return daousuario.readPorVideo();
+		List<Usuario> listaUsuarioVideo = new ArrayList<Usuario>();
+		List<Visualizacao> todosVisualizacaos = listarVisualizacoes();
+		for (Visualizacao visualizacao : todosVisualizacaos) {
+				if (visualizacao.getVideo().getLink() == link) {
+					listaUsuarioVideo.add(visualizacao.getUsuario());
+				}
 		}
-	*/
+		return listaUsuarioVideo;
+	}
+		
+	
 	
 	
 	//public static Visualizacao registrarVisualizacao(String link, email, nota)

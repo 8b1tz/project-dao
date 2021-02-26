@@ -23,6 +23,13 @@ public class Visualizacao {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public Video getVideo() {
+		return video;
+	}
 
 	@Override
 	public String toString() {
