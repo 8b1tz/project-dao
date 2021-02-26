@@ -121,17 +121,12 @@ public class Fachada {
 		
 
 	
-	public static List<Usuario> consultarUsuariosPorVideo(String link){
-		List<Usuario> listaUsuarioVideo = new ArrayList<Usuario>();
-		List<Visualizacao> todosVisualizacaos = listarVisualizacoes();
-		for (Visualizacao visualizacao : todosVisualizacaos) {
-				if (visualizacao.getVideo().getLink() == link) {
-					listaUsuarioVideo.add(visualizacao.getUsuario());
-				}
-		}
-		return listaUsuarioVideo;
-	}
-		
+	public static List<Usuario> consultarUsuariosPorVideo(String link) {
+        if(link.isEmpty())
+            return daousuario.readAll();
+        else
+            return daousuario.consultarUsuariosPorVideo(link);
+    }
 	
 	
 	
