@@ -17,7 +17,10 @@ public class Video {
 	public String getNome() {
 		return nome;
 	}
-
+	
+	public String getLink() {
+        return link;
+    }
 	public void adicionar(Assunto a) {
 		assuntos.add(a);
 	}
@@ -30,9 +33,6 @@ public class Video {
 	
 	public List<Assunto> getListaAssuntos() {
 		return assuntos;
-	}
-	public String getLink() {
-		return link;
 	}
 
 

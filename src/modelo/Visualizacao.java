@@ -15,7 +15,12 @@ public class Visualizacao {
 		this.usuario = usuario;
 		this.video = video;
 	}
-	
+	public Usuario getUsuario() {
+        return usuario;
+    }
+    public Video getVideo() {
+        return video;
+    }
 	public int getId() {
 		return id;
 	}
@@ -24,12 +29,7 @@ public class Visualizacao {
 		this.id = id;
 	}
 	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	public Video getVideo() {
-		return video;
-	}
+
 
 	@Override
 	public String toString() {
