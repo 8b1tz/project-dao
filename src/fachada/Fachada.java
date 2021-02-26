@@ -30,8 +30,19 @@ public class Fachada {
 			throw new Exception("Video já cadastrado: " + link);
 		}
 		v = new Video(link, nome);
+		v.adicionar(palavra);
 		daovideo.create(v);
 		DAO.commit();
 		return v;
+	}
+	public static void adicionarAssunto(String link, Assunto palavra) throws Exception {
+		DAO.begin();
+		Video v = daovideo.read(link);
+		if(v == null) {
+			throw new Exception("Video inexistente");
+		}
+		v.adicionar(palavra);
+		daovideo.update(v);
+		DAO.commit();
 	}
 }
