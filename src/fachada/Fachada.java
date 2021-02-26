@@ -1,10 +1,7 @@
 package fachada;
 
 import java.util.List;
-<<<<<<< HEAD
-import java.util.stream.Collectors;
-=======
->>>>>>> b11937e41a575253a7ee2948d52950b23d16cbef
+
 
 import dao.DAO;
 import dao.DAOAssunto;
@@ -49,6 +46,7 @@ public class Fachada {
 		DAO.begin();
 		Video v = daovideo.read(link);
 		if(v == null) {
+			DAO.rollback();	
 			throw new Exception("Video inexistente");
 		}
 		v.adicionar(new Assunto(palavra));
@@ -70,16 +68,18 @@ public class Fachada {
 		return visu;
 		
 	}
-<<<<<<< HEAD
+
 	public static Visualizacao localizarVisualizacao(int id) throws Exception{
 		List<Visualizacao> visu = listarVisualizacoes();
 		for(Visualizacao v : visu) {
 			if(v.getId() == id) {
-				return v;
+				return daovisualizacao.read(v);
 			}
 		}
+		DAO.rollback();	
 		throw new Exception("Não existe visualização com esse id");
 	}
+	
 	/* Pode-se apagar uma visualização, mas não se pode apagar um usuário, vídeo ou assunto. */
 	public static void apagarVisualizacao(int id) throws Exception {
 		DAO.begin();
@@ -107,24 +107,5 @@ public class Fachada {
     public static List<Usuario> listarUsuarios(){
         return daousuario.readAll();
         }
-=======
-	
-	public static List<Visualizacao> listarVisualizacoes(){
-		return daovisualizacao.readAll();
-		}
-	
-	public static List<Video> listarVideos(){
-		return daovideo.readAll();
-		}
-	
-	public static List<Usuario> listarUsuarios(){
-		return daousuario.readAll();
-		}
-	
-	
-	//public static Visualizacao registrarVisualizacao(String link, email, nota)
-
-
-
->>>>>>> b11937e41a575253a7ee2948d52950b23d16cbef
 }
+
