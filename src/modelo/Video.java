@@ -28,7 +28,7 @@ public class Video {
 
 	@Override
 	public String toString() {
-		String texto = "Video [" + (link != null ? "link=" + link + ", " : "") + (nome != null ? "nome=" + nome + ", " : "")
+		String texto = "Video [" + (link != null ? "link=" + link + ", " : "") +  (nome != null ? "nome=" + nome + ", " : "")
 				+ "media=" + media ;
 		
 		texto+=", assuntos=";
