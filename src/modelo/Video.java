@@ -24,7 +24,9 @@ public class Video {
 	public void adicionar(Visualizacao vis) {
 		visualizacoes.add(vis);
 	}
-
+	public void remover(Visualizacao vis) {
+		visualizacoes.remove(vis);
+	}
 
 	@Override
 	public String toString() {

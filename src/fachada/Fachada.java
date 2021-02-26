@@ -1,5 +1,8 @@
 package fachada;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import dao.DAO;
 import dao.DAOAssunto;
 import dao.DAOVisualizacao;
@@ -63,4 +66,40 @@ public class Fachada {
 		return visu;
 		
 	}
+	public static Visualizacao localizarVisualizacao(int id) throws Exception{
+		List<Visualizacao> visu = listarVisualizacoes();
+		for(Visualizacao v : visu) {
+			if(v.getId() == id) {
+				return v;
+			}
+		}
+		throw new Exception("Não existe visualização com esse id");
+	}
+	/* Pode-se apagar uma visualização, mas não se pode apagar um usuário, vídeo ou assunto. */
+	public static void apagarVisualizacao(int id) throws Exception {
+		DAO.begin();
+		Visualizacao visu = daovisualizacao.read(id);
+		if (visu == null) {
+			DAO.rollback();
+			throw new Exception("Visualizacão inexistente "+ visu);
+		}
+		List<Video> v= listarVideos();
+		for (Video vi : v) {
+			vi.remover(visu);
+		}
+		daovisualizacao.delete(visu);
+		DAO.commit();
+	}
+	
+	public static List<Visualizacao> listarVisualizacoes(){
+        return daovisualizacao.readAll();
+        }
+
+    public static List<Video> listarVideos(){
+        return daovideo.readAll();
+        }
+
+    public static List<Usuario> listarUsuarios(){
+        return daousuario.readAll();
+        }
 }
