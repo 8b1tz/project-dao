@@ -6,14 +6,17 @@ import dao.DAOVisualizacao;
 import dao.DAOusuario;
 import dao.DAOvideo;
 import modelo.Assunto;
+import modelo.Usuario;
 import modelo.Video;
+import modelo.Visualizacao;
 
 public class Fachada {
 	private static DAOvideo daovideo = new DAOvideo();
 	private static DAOAssunto daoassunto = new DAOAssunto();
 	private static DAOusuario daousuario = new DAOusuario();
 	private static DAOVisualizacao daovisualizacao = new DAOVisualizacao();
-
+	private static int id = 0;
+	
 	public static void inicializar() {
 		DAO.open();
 	}
@@ -46,5 +49,18 @@ public class Fachada {
 		daovideo.update(v);
 		DAO.commit();
 	}
-	//public static Visualizacao registrarVisualizacao(String link, email, nota)
+	public static Visualizacao registrarVisualizacao(String link, String email, int nota) throws Exception {
+		DAO.begin();
+		Video v = daovideo.read(link);
+		if (v == null) {
+			DAO.rollback();
+			throw new Exception("Video não encontrado");
+		}
+		Visualizacao visu = new Visualizacao(id++, nota, new Usuario(email), v);
+		v.adicionar(visu);
+		daovisualizacao.create(visu);
+		DAO.commit();
+		return visu;
+		
+	}
 }
