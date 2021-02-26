@@ -2,7 +2,6 @@ package fachada;
 
 import java.util.List;
 
-
 import dao.DAO;
 import dao.DAOAssunto;
 import dao.DAOVisualizacao;
@@ -33,7 +32,7 @@ public class Fachada {
 		Video v = daovideo.read(link);
 		if (v != null) {
 			DAO.rollback();
-			throw new Exception("Video já cadastrado: " + link);
+			throw new Exception("Video jÃ¡ cadastrado: " + link);
 		}
 		v = new Video(link, nome);
 		v.adicionar(new Assunto(palavra));
@@ -59,7 +58,7 @@ public class Fachada {
 		Video v = daovideo.read(link);
 		if (v == null) {
 			DAO.rollback();
-			throw new Exception("Video não encontrado");
+			throw new Exception("Video nÃ£o encontrado");
 		}
 		Visualizacao visu = new Visualizacao(id++, nota, new Usuario(email), v);
 		v.adicionar(visu);
@@ -78,15 +77,14 @@ public class Fachada {
 		}
 		DAO.rollback();	
 		throw new Exception("Não existe visualização com esse id");
-	}
+	};
 	
-	/* Pode-se apagar uma visualização, mas não se pode apagar um usuário, vídeo ou assunto. */
 	public static void apagarVisualizacao(int id) throws Exception {
 		DAO.begin();
 		Visualizacao visu = daovisualizacao.read(id);
 		if (visu == null) {
 			DAO.rollback();
-			throw new Exception("Visualizacão inexistente "+ visu);
+			throw new Exception("VisualizacÃ£o inexistente "+ visu);
 		}
 		List<Video> v= listarVideos();
 		for (Video vi : v) {
@@ -108,4 +106,5 @@ public class Fachada {
         return daousuario.readAll();
         }
 }
+
 
