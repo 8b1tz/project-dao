@@ -24,7 +24,13 @@ public class Video {
 	public void adicionar(Visualizacao vis) {
 		visualizacoes.add(vis);
 	}
-
+	public void remover(Visualizacao vis) {
+        visualizacoes.remove(vis);
+    }
+	
+	public List<Assunto> getListaAssuntos() {
+		return assuntos;
+	}
 
 	@Override
 	public String toString() {
@@ -41,6 +47,7 @@ public class Video {
 		}
 		return texto;
 	}
+
 
 	
 }

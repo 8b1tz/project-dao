@@ -1,5 +1,6 @@
 package fachada;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.DAO;
@@ -78,6 +79,43 @@ public class Fachada {
 	public static List<Usuario> listarUsuarios(){
 		return daousuario.readAll();
 		}
+	
+	public static void apagarVisualizacao(int id) throws Exception {
+        DAO.begin();
+        Visualizacao visu = daovisualizacao.read(id);
+        if (visu == null) {
+            DAO.rollback();
+            throw new Exception("Visualizacão inexistente "+ visu);
+        }
+        List<Video> v= listarVideos();
+        for (Video vi : v) {
+            vi.remover(visu);
+        }
+        daovisualizacao.delete(visu);
+        DAO.commit();
+    }
+	
+	public static List<Video> consultarVideosPorAssunto(String palavra){
+		List<Video> listaVideosAssunto = new ArrayList<Video>();
+		List<Video> todosVideos = listarVideos();
+		for (Video video : todosVideos) {
+			for(Assunto assunto : video.getListaAssuntos()) {
+				if (assunto.getPalavra() == palavra) {
+					listaVideosAssunto.add(video);
+				}
+			}
+		}
+		return null;
+		}
+	
+	public static List<Video> consultarVideosPorUsuario(String email){
+		return daovideo.readPorUsuario();
+		}
+	
+	public static List<Usuario> consultarUsuariosPorVideo(String link){
+		return daousuario.readPorVideo();
+		}
+	
 	
 	
 	//public static Visualizacao registrarVisualizacao(String link, email, nota)

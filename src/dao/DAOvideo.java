@@ -1,5 +1,6 @@
 package dao;
 
+
 import modelo.Video;
 
 public class DAOvideo extends DAO<Video>{

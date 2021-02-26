@@ -1,5 +1,6 @@
 package dao;
 
+
 import modelo.Usuario;
 
 public class DAOusuario extends DAO<Usuario>{
@@ -8,5 +9,7 @@ public class DAOusuario extends DAO<Usuario>{
 	public Usuario read(Object chave) {
 		return read(chave);
 	}
+
+
 	
 }
