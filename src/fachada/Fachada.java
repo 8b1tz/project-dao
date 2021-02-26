@@ -1,7 +1,10 @@
 package fachada;
 
 import java.util.List;
+<<<<<<< HEAD
 import java.util.stream.Collectors;
+=======
+>>>>>>> b11937e41a575253a7ee2948d52950b23d16cbef
 
 import dao.DAO;
 import dao.DAOAssunto;
@@ -52,6 +55,7 @@ public class Fachada {
 		daovideo.update(v);
 		DAO.commit();
 	}
+	
 	public static Visualizacao registrarVisualizacao(String link, String email, int nota) throws Exception {
 		DAO.begin();
 		Video v = daovideo.read(link);
@@ -66,6 +70,7 @@ public class Fachada {
 		return visu;
 		
 	}
+<<<<<<< HEAD
 	public static Visualizacao localizarVisualizacao(int id) throws Exception{
 		List<Visualizacao> visu = listarVisualizacoes();
 		for(Visualizacao v : visu) {
@@ -102,4 +107,24 @@ public class Fachada {
     public static List<Usuario> listarUsuarios(){
         return daousuario.readAll();
         }
+=======
+	
+	public static List<Visualizacao> listarVisualizacoes(){
+		return daovisualizacao.readAll();
+		}
+	
+	public static List<Video> listarVideos(){
+		return daovideo.readAll();
+		}
+	
+	public static List<Usuario> listarUsuarios(){
+		return daousuario.readAll();
+		}
+	
+	
+	//public static Visualizacao registrarVisualizacao(String link, email, nota)
+
+
+
+>>>>>>> b11937e41a575253a7ee2948d52950b23d16cbef
 }
