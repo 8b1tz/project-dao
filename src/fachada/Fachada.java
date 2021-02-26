@@ -1,10 +1,7 @@
 package fachada;
 
 import java.util.List;
-<<<<<<< HEAD
-import java.util.stream.Collectors;
-=======
->>>>>>> b11937e41a575253a7ee2948d52950b23d16cbef
+
 
 import dao.DAO;
 import dao.DAOAssunto;
@@ -36,7 +33,7 @@ public class Fachada {
 		Video v = daovideo.read(link);
 		if (v != null) {
 			DAO.rollback();
-			throw new Exception("Video j· cadastrado: " + link);
+			throw new Exception("Video j√° cadastrado: " + link);
 		}
 		v = new Video(link, nome);
 		v.adicionar(new Assunto(palavra));
@@ -61,7 +58,7 @@ public class Fachada {
 		Video v = daovideo.read(link);
 		if (v == null) {
 			DAO.rollback();
-			throw new Exception("Video n„o encontrado");
+			throw new Exception("Video n√£o encontrado");
 		}
 		Visualizacao visu = new Visualizacao(id++, nota, new Usuario(email), v);
 		v.adicionar(visu);
@@ -70,7 +67,7 @@ public class Fachada {
 		return visu;
 		
 	}
-<<<<<<< HEAD
+
 	public static Visualizacao localizarVisualizacao(int id) throws Exception{
 		List<Visualizacao> visu = listarVisualizacoes();
 		for(Visualizacao v : visu) {
@@ -78,15 +75,15 @@ public class Fachada {
 				return v;
 			}
 		}
-		throw new Exception("N„o existe visualizaÁ„o com esse id");
+		throw new Exception("N√£o existe visualiza√ß√£o com esse id");
 	}
-	/* Pode-se apagar uma visualizaÁ„o, mas n„o se pode apagar um usu·rio, vÌdeo ou assunto. */
+	/* Pode-se apagar uma visualiza√ß√£o, mas n√£o se pode apagar um usu√°rio, v√≠deo ou assunto. */
 	public static void apagarVisualizacao(int id) throws Exception {
 		DAO.begin();
 		Visualizacao visu = daovisualizacao.read(id);
 		if (visu == null) {
 			DAO.rollback();
-			throw new Exception("Visualizac„o inexistente "+ visu);
+			throw new Exception("Visualizac√£o inexistente "+ visu);
 		}
 		List<Video> v= listarVideos();
 		for (Video vi : v) {
@@ -96,18 +93,6 @@ public class Fachada {
 		DAO.commit();
 	}
 	
-	public static List<Visualizacao> listarVisualizacoes(){
-        return daovisualizacao.readAll();
-        }
-
-    public static List<Video> listarVideos(){
-        return daovideo.readAll();
-        }
-
-    public static List<Usuario> listarUsuarios(){
-        return daousuario.readAll();
-        }
-=======
 	
 	public static List<Visualizacao> listarVisualizacoes(){
 		return daovisualizacao.readAll();
@@ -121,10 +106,4 @@ public class Fachada {
 		return daousuario.readAll();
 		}
 	
-	
-	//public static Visualizacao registrarVisualizacao(String link, email, nota)
-
-
-
->>>>>>> b11937e41a575253a7ee2948d52950b23d16cbef
 }
