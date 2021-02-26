@@ -105,9 +105,9 @@ public class Fachada {
 				}
 			}
 		}
-		return null;
-		}
-	
+		return listaVideosAssunto;
+	}
+	/*
 	public static List<Video> consultarVideosPorUsuario(String email){
 		return daovideo.readPorUsuario();
 		}
@@ -115,7 +115,7 @@ public class Fachada {
 	public static List<Usuario> consultarUsuariosPorVideo(String link){
 		return daousuario.readPorVideo();
 		}
-	
+	*/
 	
 	
 	//public static Visualizacao registrarVisualizacao(String link, email, nota)
