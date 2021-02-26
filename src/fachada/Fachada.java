@@ -22,7 +22,7 @@ public class Fachada {
 		DAO.close();
 	}
 
-	public static Video cadastrarVideo(String link, String nome, Assunto palavra) throws Exception {
+	public static Video cadastrarVideo(String link, String nome, String palavra) throws Exception {
 		DAO.begin();
 		Video v = daovideo.read(link);
 		if (v != null) {
@@ -30,19 +30,21 @@ public class Fachada {
 			throw new Exception("Video já cadastrado: " + link);
 		}
 		v = new Video(link, nome);
-		v.adicionar(palavra);
+		v.adicionar(new Assunto(palavra));
 		daovideo.create(v);
 		DAO.commit();
 		return v;
 	}
-	public static void adicionarAssunto(String link, Assunto palavra) throws Exception {
+	
+	public static void adicionarAssunto(String link, String palavra) throws Exception {
 		DAO.begin();
 		Video v = daovideo.read(link);
 		if(v == null) {
 			throw new Exception("Video inexistente");
 		}
-		v.adicionar(palavra);
+		v.adicionar(new Assunto(palavra));
 		daovideo.update(v);
 		DAO.commit();
 	}
+	//public static Visualizacao registrarVisualizacao(String link, email, nota)
 }
