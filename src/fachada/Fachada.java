@@ -1,12 +1,16 @@
 package fachada;
 
+import java.util.List;
+
 import dao.DAO;
 import dao.DAOAssunto;
 import dao.DAOVisualizacao;
 import dao.DAOusuario;
 import dao.DAOvideo;
 import modelo.Assunto;
+import modelo.Usuario;
 import modelo.Video;
+import modelo.Visualizacao;
 
 public class Fachada {
 	private static DAOvideo daovideo = new DAOvideo();
@@ -46,5 +50,19 @@ public class Fachada {
 		daovideo.update(v);
 		DAO.commit();
 	}
+	
+	public static List<Visualizacao> listarVisualizacoes(){
+		return daovisualizacao.readAll();
+		}
+	
+	public static List<Video> listarVideos(){
+		return daovideo.readAll();
+		}
+	
+	public static List<Usuario> listarUsuarios(){
+		return daousuario.readAll();
+		}
+	
+	
 	//public static Visualizacao registrarVisualizacao(String link, email, nota)
 }
