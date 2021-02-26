@@ -15,7 +15,12 @@ public class Visualizacao {
 		this.usuario = usuario;
 		this.video = video;
 	}
-	
+	public Usuario getUsuario() {
+        return usuario;
+    }
+    public Video getVideo() {
+        return video;
+    }
 	public int getId() {
 		return id;
 	}

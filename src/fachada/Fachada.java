@@ -18,7 +18,7 @@ public class Fachada {
 	private static DAOusuario daousuario = new DAOusuario();
 	private static DAOVisualizacao daovisualizacao = new DAOVisualizacao();
 	private static int id = 0;
-	
+
 	public static void inicializar() {
 		DAO.open();
 	}
@@ -40,12 +40,12 @@ public class Fachada {
 		DAO.commit();
 		return v;
 	}
-	
+
 	public static void adicionarAssunto(String link, String palavra) throws Exception {
 		DAO.begin();
 		Video v = daovideo.read(link);
-		if(v == null) {
-			DAO.rollback();	
+		if (v == null) {
+			DAO.rollback();
 			throw new Exception("Video inexistente");
 		}
 		Assunto a = new Assunto(palavra);
@@ -54,7 +54,7 @@ public class Fachada {
 		daovideo.update(v);
 		DAO.commit();
 	}
-	
+
 	public static Visualizacao registrarVisualizacao(String link, String email, int nota) throws Exception {
 		DAO.begin();
 		Video v = daovideo.read(link);
@@ -68,46 +68,69 @@ public class Fachada {
 		daovisualizacao.create(visu);
 		DAO.commit();
 		return visu;
-		
+
 	}
 
-	public static Visualizacao localizarVisualizacao(int id) throws Exception{
+	public static Visualizacao localizarVisualizacao(int id) throws Exception {
 		List<Visualizacao> visu = listarVisualizacoes();
-		for(Visualizacao v : visu) {
-			if(v.getId() == id) {
+		for (Visualizacao v : visu) {
+			if (v.getId() == id) {
 				return daovisualizacao.read(v);
 			}
 		}
-		DAO.rollback();	
+		DAO.rollback();
 		throw new Exception("N„o existe visualizaÁ„o com esse id");
 	};
-	
+
 	public static void apagarVisualizacao(int id) throws Exception {
 		DAO.begin();
 		Visualizacao visu = daovisualizacao.read(id);
 		if (visu == null) {
 			DAO.rollback();
-			throw new Exception("Visualizac√£o inexistente "+ visu);
+			throw new Exception("Visualizac√£o inexistente " + visu);
 		}
-		List<Video> v= listarVideos();
+		List<Video> v = listarVideos();
 		for (Video vi : v) {
 			vi.remover(visu);
 		}
 		daovisualizacao.delete(visu);
 		DAO.commit();
 	}
-	
-	public static List<Visualizacao> listarVisualizacoes(){
-        return daovisualizacao.readAll();
-        }
 
-    public static List<Video> listarVideos(){
-        return daovideo.readAll();
-        }
+	// ------------ LISTAGEM ----------------------------------------
 
-    public static List<Usuario> listarUsuarios(){
-        return daousuario.readAll();
-        }
+	public static List<Visualizacao> listarVisualizacoes() {
+		return daovisualizacao.readAll();
+	}
+
+	public static List<Video> listarVideos() {
+		return daovideo.readAll();
+	}
+
+	public static List<Usuario> listarUsuarios() {
+		return daousuario.readAll();
+	}
+
+// ------------ CONSULTAS -------------------------------------------
+	public static List<Video> consultarVideosPorAssunto(String palavra) {
+		if (palavra.isEmpty())
+			return daovideo.readAll();
+
+		else
+			return daovideo.consultarVideosPorAssunto(palavra);
+	}
+
+	public static List<Video> consultarVideosPorUsuario(String email) {
+		if (email.isEmpty())
+			return daovideo.readAll();
+		else
+			return daovideo.consultarVideosPorUsuario(email);
+	}
+
+	public static List<Usuario> consultarUsuariosPorVideo(String link) {
+		if (link.isEmpty())
+			return daousuario.readAll();
+		else
+			return daousuario.consultarUsuariosPorVideo(link);
+	}
 }
-
-
