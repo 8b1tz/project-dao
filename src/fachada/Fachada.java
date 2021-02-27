@@ -26,6 +26,34 @@ public class Fachada {
 	public static void finalizar() {
 		DAO.close();
 	}
+// ------------------------- CADASTROS --------------------------------------------
+	public static Assunto cadastrarAssunto(String palavra) throws Exception {
+		DAO.begin();
+		Assunto a = daoassunto.read(palavra);
+		if (a != null) {
+			DAO.rollback();
+			throw new Exception("Assunto já cadastrado!");
+		}
+		a = new Assunto(palavra);
+		daoassunto.create(a);
+		DAO.commit();
+		return a;
+
+	}
+
+	public static Usuario cadastrarUsuario(String email) throws Exception {
+		DAO.begin();
+		Usuario u = daousuario.read(email);
+		if (u != null) {
+			DAO.rollback();
+			throw new Exception("Usuario já cadastrado!");
+		}
+		u = new Usuario(email);
+		daousuario.create(u);
+		DAO.commit();
+		return u;
+
+	}
 
 	public static Video cadastrarVideo(String link, String nome, String palavra) throws Exception {
 		DAO.begin();
@@ -35,26 +63,12 @@ public class Fachada {
 			throw new Exception("Video ja cadastrado: " + link);
 		}
 		v = new Video(link, nome);
-		v.adicionar(new Assunto(palavra));
+		v.adicionar(cadastrarAssunto(palavra));
 		daovideo.create(v);
 		DAO.commit();
 		return v;
 	}
-
-	public static void adicionarAssunto(String link, String palavra) throws Exception {
-		DAO.begin();
-		Video v = daovideo.read(link);
-		if (v == null) {
-			DAO.rollback();
-			throw new Exception("Video inexistente");
-		}
-		Assunto a = new Assunto(palavra);
-		v.adicionar(a);
-		daoassunto.update(a);
-		daovideo.update(v);
-		DAO.commit();
-	}
-
+	
 	public static Visualizacao registrarVisualizacao(String link, String email, int nota) throws Exception {
 		DAO.begin();
 		Video v = daovideo.read(link);
@@ -70,7 +84,20 @@ public class Fachada {
 		return visu;
 
 	}
+//--------------------------------------- ATUALIZACAO ---------------------------------------------------------
+	public static void adicionarAssunto(String link, String palavra) throws Exception {
+		DAO.begin();
+		Video v = daovideo.read(link);
+		if (v == null) {
+			DAO.rollback();
+			throw new Exception("Video inexistente");
+		}
 
+		v.adicionar(cadastrarAssunto(palavra));
+		daovideo.update(v);
+		DAO.commit();
+	}
+// ---------------------------------------------------------------------------------------------------
 	public static Visualizacao localizarVisualizacao(int id) throws Exception {
 		List<Visualizacao> visu = listarVisualizacoes();
 		for (Visualizacao v : visu) {
