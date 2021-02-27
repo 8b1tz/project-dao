@@ -7,10 +7,7 @@ package aplicacao_console;
  */
 
 import fachada.Fachada;
-import modelo.Assunto;
-import modelo.Usuario;
 import modelo.Video;
-import modelo.Visualizacao;
 
 
 public class Cadastrar {

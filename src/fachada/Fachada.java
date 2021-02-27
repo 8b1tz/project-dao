@@ -63,7 +63,7 @@ public class Fachada {
 			throw new Exception("Video ja cadastrado: " + link);
 		}
 		v = new Video(link, nome);
-		v.adicionar(new Assunto(palavra));
+		v.adicionar(cadastrarAssunto(palavra));
 		daovideo.create(v);
 		DAO.commit();
 		return v;
@@ -92,9 +92,8 @@ public class Fachada {
 			DAO.rollback();
 			throw new Exception("Video inexistente");
 		}
-		Assunto a = cadastrarAssunto(palavra);
-		v.adicionar(a);
-		daoassunto.update(a);
+
+		v.adicionar(cadastrarAssunto(palavra));
 		daovideo.update(v);
 		DAO.commit();
 	}
