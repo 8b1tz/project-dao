@@ -43,7 +43,7 @@ public class Video {
 		
 		texto+=", assuntos= ";
 		for(Assunto a : assuntos) {
-			texto += " "+ a.getPalavra( );
+			texto += " "+ a.getPalavra();
 		}
 		texto+="\n visualizacoes=";
 		for(Visualizacao vis : visualizacoes) {

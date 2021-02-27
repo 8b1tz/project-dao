@@ -10,7 +10,7 @@ public class Listar {
 	public Listar(){
 		try {
 			Fachada.inicializar();
-			Fachada.adicionarAssunto("aa", "fofo");
+			//Fachada.adicionarAssunto("aa", "fofo");
 			System.out.println("Listagem de videos:");
 			for(Video v : Fachada.listarVideos() )		
 				System.out.println(v);
