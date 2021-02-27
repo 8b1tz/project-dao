@@ -32,7 +32,7 @@ public class Fachada {
 		Video v = daovideo.read(link);
 		if (v != null) {
 			DAO.rollback();
-			throw new Exception("Video já cadastrado: " + link);
+			throw new Exception("Video ja cadastrado: " + link);
 		}
 		v = new Video(link, nome);
 		v.adicionar(new Assunto(palavra));
