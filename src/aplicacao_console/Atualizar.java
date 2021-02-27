@@ -10,10 +10,10 @@ public class Atualizar {
 			Fachada.adicionarAssunto("aa", "Felipe Neto");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		} finally {
+			Fachada.finalizar();
+			System.out.println("fim do programa");
 		}
-
-		Fachada.finalizar();
-		System.out.println("fim do programa");
 	}
 
 	// =================================================
