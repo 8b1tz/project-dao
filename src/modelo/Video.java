@@ -41,9 +41,9 @@ public class Video {
 		String texto = "Video [" + (link != null ? "link=" + link + ", " : "") +  (nome != null ? "nome=" + nome + ", " : "")
 				+ "media=" + media ;
 		
-		texto+=", assuntos=";
+		texto+=", assuntos= ";
 		for(Assunto a : assuntos) {
-			texto += a.getPalavra();
+			texto += " "+ a.getPalavra( );
 		}
 		texto+="\n visualizacoes=";
 		for(Visualizacao vis : visualizacoes) {
