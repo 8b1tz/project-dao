@@ -28,7 +28,9 @@ public class Visualizacao {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+	public double getNota() {
+		return nota;
+	}
 
 
 	@Override

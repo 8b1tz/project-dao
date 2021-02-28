@@ -66,12 +66,18 @@ public class Fachada {
 		v = new Video(link, nome);
 		if (a != null) {
 			v.adicionar(a);
+			a.adicionar(v);
+			daoassunto.update(a);
 			daovideo.update(v);
 			daovideo.create(v);
 			DAO.commit();
 			return v;
 		}
-		v.adicionar(cadastrarAssunto(palavra));
+		Assunto asu = cadastrarAssunto(palavra);
+		v.adicionar(asu);
+		asu.adicionar(v);
+		daoassunto.create(asu);
+		daoassunto.update(asu);
 		daovideo.update(v);
 		daovideo.create(v);
 		DAO.commit();
@@ -89,6 +95,7 @@ public class Fachada {
 		if (u != null) {
 			Visualizacao visu = new Visualizacao(id++, nota, u, v);
 			v.adicionar(visu);
+			v.fazerMedia();
 			daovideo.update(v);
 			u.adicionar(visu);
 			daousuario.update(u);
@@ -99,6 +106,7 @@ public class Fachada {
 		Usuario usu = cadastrarUsuario(email);
 		Visualizacao visu = new Visualizacao(id++, nota, usu, v);
 		v.adicionar(visu);
+		v.fazerMedia();
 		daovideo.update(v);
 		daovideo.create(v);
 		usu.adicionar(visu);
@@ -119,9 +127,22 @@ public class Fachada {
 			DAO.rollback();
 			throw new Exception("Video inexistente");
 		}
-
-		v.adicionar(cadastrarAssunto(palavra));
+		Assunto a = daoassunto.read(palavra);
+		if (a == null) {
+			Assunto as = cadastrarAssunto(palavra);
+			as.adicionar(v);
+			v.adicionar(as);
+			daovideo.update(v);
+			daoassunto.update(as);
+			daoassunto.create(as);
+			DAO.commit();
+		}
+		Assunto as = cadastrarAssunto(palavra);
+		as.adicionar(v);
+		v.adicionar(as);
 		daovideo.update(v);
+		daoassunto.update(as);
+		daoassunto.create(as);
 		DAO.commit();
 	}
 // ---------------------------------------------------------------------------------------------------

@@ -34,8 +34,14 @@ public class Video {
 	public List<Assunto> getListaAssuntos() {
 		return assuntos;
 	}
-
-
+	public void fazerMedia() {
+		double soma = 0;
+		for (Visualizacao v : visualizacoes) {
+			soma += v.getNota(); 
+		}
+		this.media = soma/visualizacoes.size();
+	
+	}
 	@Override
 	public String toString() {
 		String texto = "Video [" + (link != null ? "link=" + link + ", " : "") +  (nome != null ? "nome=" + nome + ", " : "")
