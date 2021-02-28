@@ -1,11 +1,8 @@
 package dao;
 
 import java.util.List;
-
 import com.db4o.query.Query;
-
 import modelo.Usuario;
-import modelo.Video;
 
 public class DAOusuario extends DAO<Usuario> {
 
