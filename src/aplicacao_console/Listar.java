@@ -7,25 +7,25 @@ import modelo.Visualizacao;
 
 public class Listar {
 
-	public Listar(){
+	public Listar() {
 		try {
 			Fachada.inicializar();
-		
+
 			System.out.println("Listagem de videos:");
-			for(Video v : Fachada.listarVideos() )		
+			for (Video v : Fachada.listarVideos())
 				System.out.println(v);
 
 			System.out.println("\nListagem de Usuarios:");
-			for(Usuario u : Fachada.listarUsuarios())
+			for (Usuario u : Fachada.listarUsuarios())
 				System.out.println(u);
-			
+
 			System.out.println("\nListagem de visualizaçoes:");
-			for(Visualizacao vi : Fachada.listarVisualizacoes())
+			for (Visualizacao vi : Fachada.listarVisualizacoes())
 				System.out.println(vi);
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}finally {
+		} finally {
 			Fachada.finalizar();
 		}
 	}

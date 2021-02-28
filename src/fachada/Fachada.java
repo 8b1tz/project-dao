@@ -26,6 +26,7 @@ public class Fachada {
 	public static void finalizar() {
 		DAO.close();
 	}
+
 // ------------------------- CADASTROS --------------------------------------------
 	public static Assunto cadastrarAssunto(String palavra) throws Exception {
 		DAO.begin();
@@ -83,7 +84,7 @@ public class Fachada {
 		DAO.commit();
 		return v;
 	}
-	
+
 	public static Visualizacao registrarVisualizacao(String link, String email, int nota) throws Exception {
 		DAO.begin();
 		Video v = daovideo.read(link);
@@ -101,7 +102,7 @@ public class Fachada {
 			daousuario.update(u);
 			daovisualizacao.create(visu);
 			DAO.commit();
-			return visu;	
+			return visu;
 		}
 		Usuario usu = cadastrarUsuario(email);
 		Visualizacao visu = new Visualizacao(id++, nota, usu, v);
@@ -114,11 +115,9 @@ public class Fachada {
 		daovisualizacao.create(visu);
 		DAO.commit();
 		return visu;
-		
-		
-		
 
 	}
+
 //--------------------------------------- ATUALIZACAO ---------------------------------------------------------
 	public static void adicionarAssunto(String link, String palavra) throws Exception {
 		DAO.begin();
@@ -145,6 +144,7 @@ public class Fachada {
 		daoassunto.create(as);
 		DAO.commit();
 	}
+
 // ---------------------------------------------------------------------------------------------------
 	public static Visualizacao localizarVisualizacao(int id) throws Exception {
 		List<Visualizacao> visu = listarVisualizacoes();

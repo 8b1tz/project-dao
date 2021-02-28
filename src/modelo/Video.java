@@ -1,4 +1,5 @@
 package modelo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,56 +10,58 @@ public class Video {
 	private List<Assunto> assuntos = new ArrayList<>();
 	private List<Visualizacao> visualizacoes = new ArrayList<>();
 
-	
 	public Video(String link, String nome) {
 		this.link = link;
 		this.nome = nome;
 	}
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public String getLink() {
-        return link;
-    }
+		return link;
+	}
+
 	public void adicionar(Assunto a) {
 		assuntos.add(a);
 	}
+
 	public void adicionar(Visualizacao vis) {
 		visualizacoes.add(vis);
 	}
+
 	public void remover(Visualizacao vis) {
-        visualizacoes.remove(vis);
-    }
-	
+		visualizacoes.remove(vis);
+	}
+
 	public List<Assunto> getListaAssuntos() {
 		return assuntos;
 	}
+
 	public void fazerMedia() {
 		double soma = 0;
 		for (Visualizacao v : visualizacoes) {
-			soma += v.getNota(); 
+			soma += v.getNota();
 		}
-		this.media = soma/visualizacoes.size();
-	
+		this.media = soma / visualizacoes.size();
+
 	}
+
 	@Override
 	public String toString() {
-		String texto = "Video [" + (link != null ? "link=" + link + ", " : "") +  (nome != null ? "nome=" + nome + ", " : "")
-				+ "media=" + media ;
-		
-		texto+=", assuntos= ";
-		for(Assunto a : assuntos) {
+		String texto = "Video [" + (link != null ? "link=" + link + ", " : "")
+				+ (nome != null ? "nome=" + nome + ", " : "") + "media=" + media;
+
+		texto += ", assuntos= ";
+		for (Assunto a : assuntos) {
 			texto += a.getPalavra();
 		}
-		texto+="\n visualizacoes=";
-		for(Visualizacao vis : visualizacoes) {
+		texto += "\n visualizacoes=";
+		for (Visualizacao vis : visualizacoes) {
 			texto += vis;
 		}
 		return texto;
 	}
 
-
-
-	
 }

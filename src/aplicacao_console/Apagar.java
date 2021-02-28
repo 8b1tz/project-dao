@@ -4,20 +4,18 @@ import fachada.Fachada;
 
 public class Apagar {
 
-	public Apagar(){
+	public Apagar() {
 		try {
 			Fachada.inicializar();
 			try {
 				Fachada.apagarVisualizacao(1);
 				System.out.println("Apagando visualização de id 1");
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				}
 			}
-			finally {
-				Fachada.finalizar();
-			}
+		} finally {
+			Fachada.finalizar();
+		}
 		System.out.println("fim do programa");
 	}
 
