@@ -4,18 +4,22 @@ import fachada.Fachada;
 
 public class Consultar {
 
+	String aux = "-------------------------------------------";
 	public Consultar(){
 
 		try {
+				
 			Fachada.inicializar();
-			System.out.println(Fachada.consultarUsuariosPorVideo("www.seila.com"));
-			System.out.println(Fachada.consultarVideosPorUsuario("sarinhabinoculo1@gmail.com"));
-			System.out.println(Fachada.consultarVideosPorAssunto("avestruz"));
-			System.out.println(Fachada.consultarVideosPorAssunto("maquiagem"));
-			System.out.println(Fachada.consultarVideosPorUsuario("meninoveneno18@gmail.com"));
-			System.out.println(Fachada.consultarVideosPorUsuario("egirlboneka@msn.com"));
-			System.out.println(Fachada.consultarVideosPorAssunto("celular"));
-			System.out.println(Fachada.consultarVideosPorUsuario("yodafonfon@hotmail.com"));
+			System.out.println(aux);
+			System.out.println(Fachada.consultarUsuariosPorVideo("https://www.youtube.com/watch?v=XXYlFuWEuKI&list=RDMMXXYlFuWEuKI&start_radio=1"));
+			System.out.println(aux);	
+			System.out.println(Fachada.consultarVideosPorAssunto("musica"));
+			System.out.println(aux);	
+			System.out.println(Fachada.consultarVideosPorAssunto("aula"));
+			System.out.println(aux);	
+			System.out.println(Fachada.consultarVideosPorUsuario("ana@gmail.com"));
+			System.out.println(aux);	
+			System.out.println(Fachada.consultarVideosPorUsuario("julia@gmail.com"));
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
