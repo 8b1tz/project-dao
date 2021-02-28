@@ -1,0 +1,18 @@
+- aplicacao_console: --- TODO
+- Cadastrar,
+- Atualizar,
+- Apagar,
+- Listar
+- Consultar.
+- 
+- aplicacao_swing: --- TODO
+- Tela Principal acessando Tela de cadastro de vídeo,
+- Tela de registro de visualização,
+- Tela de listagem de vídeo
+- Tela de listagem de visualização
+- 
+- fachada – contém a classe Fachada --- DONE
+- 
+- modelo – contém as classes de negócio do diagrama --- DONE
+- 
+- dao – contém a classe DAO e as subclasses específicas, para acesso ao db4o --- DONE
