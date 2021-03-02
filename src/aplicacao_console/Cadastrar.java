@@ -28,7 +28,7 @@ public class Cadastrar {
 					"https://www.youtube.com/watch?v=XXYlFuWEuKI&list=RDMMXXYlFuWEuKI&start_radio=1", "julia@gmail.com",
 					2);
 			Fachada.registrarVisualizacao("https://www.youtube.com/watch?v=cHHLHGNpCSA&list=RDMMXXYlFuWEuKI&index=3",
-					"ana@gmail.com", 8);
+					"ana@gmail.com", 2);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
