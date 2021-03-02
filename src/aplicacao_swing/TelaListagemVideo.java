@@ -1,22 +1,44 @@
 package aplicacao_swing;
 
-import javax.swing.JFrame;
-import javax.swing.JTextField;
+import java.awt.EventQueue;
 
-public class TelaListagemVideo extends JFrame{
+import javax.swing.JFrame;
+
+public class TelaListagemVideo extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frmListagem;
-	private JTextField textField;
-	
-	public JFrame getFrame() {
-		return frmListagem;
+	private JFrame frmListagemVideo;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaListagemVideo window = new TelaListagemVideo();
+					window.frmListagemVideo.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
 	}
 
-	public void setFrame(JFrame frame) {
-		this.frmListagem = frame;
+	public TelaListagemVideo() {
+		initialize();
+	}
+
+	private void initialize() {
+		frmListagemVideo = new JFrame();
+		frmListagemVideo.setBounds(100, 100, 450, 300);
+	}
+
+	public JFrame getFrmListagemVideo() {
+		return frmListagemVideo;
+	}
+
+	public void setFrmListagemVideo(JFrame frmListagemVisu) {
+		this.frmListagemVideo = frmListagemVisu;
 	}
 }
-
