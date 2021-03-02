@@ -47,7 +47,7 @@ public class TelaPrincipal {
 	private void initialize() {
 		frmDb = new JFrame();
 		frmDb.setResizable(false);
-		frmDb.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/imagem/db.png")));
+		frmDb.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/imagem/icon.png")));
 		frmDb.setTitle("BdTube");
 		frmDb.setBounds(100, 100, 450, 300);
 		frmDb.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

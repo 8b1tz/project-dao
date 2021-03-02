@@ -3,6 +3,11 @@ package aplicacao_swing;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.Toolkit;
 
 public class TelaCadastroVideo extends JFrame {
 	/**
@@ -10,6 +15,9 @@ public class TelaCadastroVideo extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JFrame frmCadastroVideo;
+	private JTextField link;
+	private JTextField nome;
+	private JTextField palavra;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -30,8 +38,56 @@ public class TelaCadastroVideo extends JFrame {
 	}
 
 	private void initialize() {
-		frmCadastroVideo = new JFrame();
-		frmCadastroVideo.setBounds(100, 100, 450, 300);
+		setFrmCadastroVideo((new JFrame()));
+		getFrmCadastroVideo().setBounds(100, 100, 450, 300);
+		frmCadastroVideo.getContentPane().setLayout(null);
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaCadastroVideo.class.getResource("/imagem/icon.png")));
+		setTitle("Cadastrar v\u00EDdeo");
+		frmCadastroVideo.getContentPane().setLayout(null);
+		
+		link = new JTextField();
+		link.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		link.setBounds(116, 75, 231, 25);
+		frmCadastroVideo.getContentPane().add(link);
+		link.setColumns(10);
+		
+		JLabel text = new JLabel("link");
+		text.setFont(new Font("Sitka Small", Font.PLAIN, 18));
+		text.setBounds(52, 75, 53, 32);
+		frmCadastroVideo.getContentPane().add(text);
+		
+		JLabel text_1 = new JLabel("nome");
+		text_1.setFont(new Font("Sitka Small", Font.PLAIN, 18));
+		text_1.setBounds(52, 117, 53, 32);
+		frmCadastroVideo.getContentPane().add(text_1);
+		
+		nome = new JTextField();
+		nome.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		nome.setColumns(10);
+		nome.setBounds(116, 117, 231, 25);
+		frmCadastroVideo.getContentPane().add(nome);
+		
+		JLabel text_1_1 = new JLabel("palavra");
+		text_1_1.setFont(new Font("Sitka Small", Font.PLAIN, 18));
+		text_1_1.setBounds(35, 159, 70, 32);
+		frmCadastroVideo.getContentPane().add(text_1_1);
+		
+		palavra = new JTextField();
+		palavra.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		palavra.setColumns(10);
+		palavra.setBounds(116, 152, 117, 25);
+		frmCadastroVideo.getContentPane().add(palavra);
+		
+		JLabel lblNewLabel = new JLabel("CADASTRAR V\u00CDDEO");
+		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 22));
+		lblNewLabel.setBounds(129, 10, 272, 39);
+		frmCadastroVideo.getContentPane().add(lblNewLabel);
+		
+		JButton buttonCadastrar = new JButton("Cadastrar");
+		buttonCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		buttonCadastrar.setBounds(267, 207, 111, 32);
+		frmCadastroVideo.getContentPane().add(buttonCadastrar);
 	}
 
 	public JFrame getFrmCadastroVideo() {
@@ -40,5 +96,8 @@ public class TelaCadastroVideo extends JFrame {
 
 	public void setFrmCadastroVideo(JFrame frmListagemVisu) {
 		this.frmCadastroVideo = frmListagemVisu;
+		frmCadastroVideo.setResizable(false);
+		frmCadastroVideo.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaCadastroVideo.class.getResource("/imagem/icon.png")));
+		frmCadastroVideo.setTitle("Criacao");
 	}
 }
