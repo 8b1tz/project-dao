@@ -4,10 +4,15 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import fachada.Fachada;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaCadastroVideo extends JFrame {
 	/**
@@ -19,19 +24,19 @@ public class TelaCadastroVideo extends JFrame {
 	private JTextField nome;
 	private JTextField palavra;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroVideo window = new TelaCadastroVideo();
-					window.frmCadastroVideo.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TelaCadastroVideo window = new TelaCadastroVideo();
+//					window.frmCadastroVideo.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//
+//	}
 
 	public TelaCadastroVideo() {
 		initialize();
@@ -83,11 +88,26 @@ public class TelaCadastroVideo extends JFrame {
 		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 22));
 		lblNewLabel.setBounds(129, 10, 272, 39);
 		frmCadastroVideo.getContentPane().add(lblNewLabel);
-
+		JLabel saida = new JLabel("");
+		saida.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		saida.setBounds(21, 201, 212, 32);
+		frmCadastroVideo.getContentPane().add(saida);
 		JButton buttonCadastrar = new JButton("Cadastrar");
+		buttonCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Fachada.cadastrarVideo(link.getText(), nome.getText(), palavra.getText());
+					saida.setText("Cadastro do vídeo " + nome.getText() + " com sucesso!");
+				} catch (Exception e1) {
+					saida.setText(e1.getMessage());
+					e1.printStackTrace();
+				}
+			}
+		});
 		buttonCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		buttonCadastrar.setBounds(267, 207, 111, 32);
 		frmCadastroVideo.getContentPane().add(buttonCadastrar);
+
 	}
 
 	public JFrame getFrmCadastroVideo() {

@@ -1,9 +1,12 @@
 package aplicacao_swing;
 
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,6 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import fachada.Fachada;
 
 public class TelaPrincipal {
 
@@ -46,6 +52,23 @@ public class TelaPrincipal {
 
 	private void initialize() {
 		frmDb = new JFrame();
+		frmDb.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				frmDb.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+				Fachada.inicializar();
+
+				frmDb.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Fachada.finalizar();
+				JOptionPane.showMessageDialog(frmDb, "banco fechado !");
+			}
+		});
 		frmDb.setResizable(false);
 		frmDb.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/imagem/icon.png")));
 		frmDb.setTitle("BdTube");
