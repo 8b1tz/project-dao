@@ -58,29 +58,50 @@ public class TelaPrincipal {
 		JMenu mnNewMenu_1_1 = new JMenu("Cadastro");
 		menuBar.add(mnNewMenu_1_1);
 
-		JMenuItem mntmCadastroDeVdeo = new JMenuItem("cadastro de v\u00EDdeo");
+		JMenuItem mntmCadastroDeVdeo = new JMenuItem("cadastro de video");
+		mntmCadastroDeVdeo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				TelaCadastroVideo window = new TelaCadastroVideo();
+				window.getFrmCadastroVideo().setVisible(true);
+			}
+		});
 		mnNewMenu_1_1.add(mntmCadastroDeVdeo);
 
 		JMenu mnNewMenu_1_2 = new JMenu("Registro ");
 		menuBar.add(mnNewMenu_1_2);
 
-		JMenuItem mntmRegistroDeVisualizao = new JMenuItem("registro de visualiza\u00E7\u00E3o,");
+		JMenuItem mntmRegistroDeVisualizao = new JMenuItem("registro de visualizacoes");
+		mntmRegistroDeVisualizao.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				TelaRegistroVisualizacao window = new TelaRegistroVisualizacao();
+				window.getFrmRegistroVisu().setVisible(true);
+			}
+		});
 		mnNewMenu_1_2.add(mntmRegistroDeVisualizao);
 
 		JMenu mnNewMenu_1_2_1 = new JMenu("Listagem");
 		menuBar.add(mnNewMenu_1_2_1);
 
-		JMenuItem mntmListagemDeVisualizaes = new JMenuItem("listagem de visualiza\u00E7\u00F5es");
+		JMenuItem mntmListagemDeVisualizaes = new JMenuItem("listagem de visualizacoes");
 		mntmListagemDeVisualizaes.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				TelaListagemVisualizacao window = new TelaListagemVisualizacao();
 				window.getFrmListagemVisu().setVisible(true);
 			}
 		});
 		mnNewMenu_1_2_1.add(mntmListagemDeVisualizaes);
 
-		JMenuItem mntmListagemDeVdeos = new JMenuItem("listagem de v\u00EDdeos");
+		JMenuItem mntmListagemDeVdeos = new JMenuItem("listagem de videos");
+		mntmListagemDeVdeos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				TelaListagemVideo window = new TelaListagemVideo();
+				window.getFrmListagemVideo().setVisible(true);
+			}
+		});
 		mnNewMenu_1_2_1.add(mntmListagemDeVdeos);
 
 		frmDb.getContentPane().setLayout(null);
