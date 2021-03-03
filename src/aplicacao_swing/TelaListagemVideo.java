@@ -1,31 +1,18 @@
 package aplicacao_swing;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import fachada.Fachada;
-import modelo.Assunto;
 import modelo.Video;
-
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-import javax.swing.JLabel;
-import java.awt.Color;
-import javax.swing.JTextPane;
-import java.awt.ScrollPane;
-import javax.swing.border.LineBorder;
-import javax.swing.ListSelectionModel;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
 
 public class TelaListagemVideo {
     /**
@@ -33,24 +20,22 @@ public class TelaListagemVideo {
      */
     //private static final long serialVersionUID = 1L;
     private JFrame frmListagemVideo;
-    private JTable table;
-    private JTable table_1;
     private JTextField textField_1;
     private JTextField textField;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    TelaListagemVideo window = new TelaListagemVideo();
-                    window.frmListagemVideo.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-    }
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    TelaListagemVideo window = new TelaListagemVideo();
+//                    window.frmListagemVideo.setVisible(true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//
+//    }
 
     public TelaListagemVideo() {
         initialize();
@@ -76,8 +61,6 @@ public class TelaListagemVideo {
         });
         btnNewButton.setBounds(20, 26, 101, 34);
         frmListagemVideo.getContentPane().add(btnNewButton);
-        
-        
         
         
         JLabel lblNewLabel = new JLabel("Listar Videos por ... ");

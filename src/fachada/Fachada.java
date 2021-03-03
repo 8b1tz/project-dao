@@ -17,7 +17,7 @@ public class Fachada {
 	private static DAOAssunto daoassunto = new DAOAssunto();
 	private static DAOusuario daousuario = new DAOusuario();
 	private static DAOVisualizacao daovisualizacao = new DAOVisualizacao();
-	private static int id = 0;
+	private static int id = 1;
 
 	public static void inicializar() {
 		DAO.open();
@@ -111,6 +111,7 @@ public class Fachada {
 		daovideo.update(v);
 		daovideo.create(v);
 		usu.adicionar(visu);
+		daousuario.update(usu);
 		daousuario.create(usu);
 		daovisualizacao.create(visu);
 		DAO.commit();

@@ -1,6 +1,5 @@
 package aplicacao_swing;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
