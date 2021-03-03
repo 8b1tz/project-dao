@@ -3,29 +3,30 @@ package aplicacao_swing;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import fachada.Fachada;
-import modelo.Assunto;
 import modelo.Video;
 
-import java.awt.BorderLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+
 import java.awt.Color;
-import javax.swing.JTextPane;
-import java.awt.ScrollPane;
-import javax.swing.border.LineBorder;
-import javax.swing.ListSelectionModel;
+import java.awt.Cursor;
+
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 public class TelaListagemVideo {
     /**
@@ -33,8 +34,6 @@ public class TelaListagemVideo {
      */
     //private static final long serialVersionUID = 1L;
     private JFrame frmListagemVideo;
-    private JTable table;
-    private JTable table_1;
     private JTextField textField_1;
     private JTextField textField;
 
@@ -51,35 +50,80 @@ public class TelaListagemVideo {
         });
 
     }
+    
+	
+    
 
     public TelaListagemVideo() {
         initialize();
     }
 
     private void initialize() {
-    	Fachada.inicializar();
+    	//Fachada.inicializar();
         frmListagemVideo = new JFrame();
+        frmListagemVideo.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				frmListagemVideo.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+				Fachada.inicializar();
+
+				frmListagemVideo.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Fachada.finalizar();
+				JOptionPane.showMessageDialog(frmListagemVideo, "banco fechado !");
+			}
+		});
         frmListagemVideo.getContentPane().setBackground(Color.LIGHT_GRAY);
-        frmListagemVideo.setBounds(100, 100, 450, 480);
+        frmListagemVideo.setBounds(100, 100, 592, 480);
         frmListagemVideo.getContentPane().setLayout(null);
+       
+
         
+        JTextArea txtrOi = new JTextArea();
+        txtrOi.setSelectionColor(Color.BLACK);
+        txtrOi.setTabSize(56);
+        txtrOi.setEditable(false);
+        txtrOi.setLineWrap(true);
+        txtrOi.setText("Selecione uma opcçao");
+        txtrOi.setFont(new Font("Candara", Font.PLAIN, 18));
+        txtrOi.setBounds(20, 168, 393, 262);
+        JScrollPane scroll = new JScrollPane(txtrOi);
+		scroll.setBounds(10, 174, 556, 244);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+        frmListagemVideo.getContentPane().add(scroll);
         
         
         JButton btnNewButton = new JButton("Todos");
         btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 14));
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		System.out.println("Listagem de videos:");
-    			for (Video v : Fachada.listarVideos())
-    				System.out.println(v);
+        		ListaVideos(txtrOi);
         	}
+
+			private void ListaVideos(JTextArea txtrOi) {
+				String texto = " ";
+    			for (Video v : Fachada.listarVideos()) {
+    				texto = texto + 
+    						"Nome: " + v.getNome() +
+    						"\n" + v.getListaAssuntos() +
+    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
+    			}
+    			txtrOi.setText(texto);
+			}
+        	
         });
+        
         btnNewButton.setBounds(20, 26, 101, 34);
         frmListagemVideo.getContentPane().add(btnNewButton);
         
-        
-        
-        
+
         JLabel lblNewLabel = new JLabel("Listar Videos por ... ");
         lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
         lblNewLabel.setBounds(10, 0, 162, 28);
@@ -87,11 +131,43 @@ public class TelaListagemVideo {
        
         JButton btnAssunto = new JButton("Assunto");
         btnAssunto.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnAssunto.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ListaVideosAssunto(txtrOi);
+        	}
+
+			private void ListaVideosAssunto(JTextArea txtrOi) {
+				String texto = " ";
+    			for (Video v : Fachada.consultarVideosPorAssunto("aula")) {
+    				texto = texto + 
+    						"Nome: " + v.getNome() +
+    						"\n" + v.getListaAssuntos() +
+    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
+    			txtrOi.setText(texto);
+    			}
+			}
+        });
         btnAssunto.setBounds(21, 71, 101, 34);
         frmListagemVideo.getContentPane().add(btnAssunto);
         
         JButton btnUsuario = new JButton("Usuario");
         btnUsuario.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnUsuario.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ListaVideosUsuario(txtrOi);
+        	}
+
+			private void ListaVideosUsuario(JTextArea txtrOi) {
+				String texto = " ";
+    			for (Video v : Fachada.consultarVideosPorUsuario("ana@gmail.com")) {
+    				texto = texto + 
+    						"Nome: " + v.getNome() +
+    						"\n" + v.getListaAssuntos() +
+    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
+    			}
+    			txtrOi.setText(texto);
+			}
+        });
         btnUsuario.setBounds(21, 116, 101, 34);
         frmListagemVideo.getContentPane().add(btnUsuario);
         
@@ -105,12 +181,7 @@ public class TelaListagemVideo {
         textField.setBounds(149, 73, 264, 34);
         frmListagemVideo.getContentPane().add(textField);
         
-        JTextArea textArea = new JTextArea();
-        textArea.setFont(new Font("Cambria Math", Font.PLAIN, 17));
-        textArea.setBounds(20, 168, 393, 262);
-        frmListagemVideo.getContentPane().add(textArea);
-        
-
+        Fachada.finalizar();
         
     }
 
