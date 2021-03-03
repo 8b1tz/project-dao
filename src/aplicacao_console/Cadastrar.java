@@ -24,6 +24,7 @@ public class Cadastrar {
 			Fachada.registrarVisualizacao(
 					"https://www.youtube.com/watch?v=XXYlFuWEuKI&list=RDMMXXYlFuWEuKI&start_radio=1", "ana@gmail.com",
 					5);
+
 			Fachada.registrarVisualizacao(
 					"https://www.youtube.com/watch?v=XXYlFuWEuKI&list=RDMMXXYlFuWEuKI&start_radio=1", "julia@gmail.com",
 					2);

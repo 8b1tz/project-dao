@@ -1,32 +1,29 @@
 package aplicacao_swing;
 
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import fachada.Fachada;
 import modelo.Video;
 
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-import javax.swing.JLabel;
+
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
-import java.awt.Color;
 import java.awt.Cursor;
 
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
+
 
 public class TelaListagemVideo {
     /**
@@ -37,22 +34,21 @@ public class TelaListagemVideo {
     private JTextField textField_1;
     private JTextField textField;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    TelaListagemVideo window = new TelaListagemVideo();
-                    window.frmListagemVideo.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
-    }
-    
-	
-    
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    TelaListagemVideo window = new TelaListagemVideo();
+//                    window.frmListagemVideo.setVisible(true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//
+//    }
+
 
     public TelaListagemVideo() {
         initialize();
@@ -123,7 +119,6 @@ public class TelaListagemVideo {
         btnNewButton.setBounds(20, 26, 101, 34);
         frmListagemVideo.getContentPane().add(btnNewButton);
         
-
         JLabel lblNewLabel = new JLabel("Listar Videos por ... ");
         lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
         lblNewLabel.setBounds(10, 0, 162, 28);
