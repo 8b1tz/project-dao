@@ -80,43 +80,76 @@ public class TelaListagemVideo {
 				}
 				txtrOi.setText(texto);
 			}
+        	
+        });
+        
+        btnNewButton.setBounds(20, 26, 101, 34);
+        frmListagemVideo.getContentPane().add(btnNewButton);
+        
+        JLabel lblNewLabel = new JLabel("Listar Videos por ... ");
+        lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
+        lblNewLabel.setBounds(10, 0, 162, 28);
+        frmListagemVideo.getContentPane().add(lblNewLabel);
+       
+        JButton btnAssunto = new JButton("Assunto");
+        btnAssunto.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnAssunto.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String assunto = textField.getText();
+        		ListaVideosAssunto(txtrOi, assunto);
+        	}
+
+			private void ListaVideosAssunto(JTextArea txtrOi, String assunto) {
+				String texto = " ";
+				try {
+					for (Video v : Fachada.consultarVideosPorAssunto(assunto)) {
+	    				texto = texto + 
+	    						"Nome: " + v.getNome() +
+	    						"\n" + v.getListaAssuntos() +
+	    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
+	    			}
+	    			
+				} catch (Exception e) {
+					texto = texto + "Assunto com a palavra {  " +  assunto + "   } não existe !\n\n Tente Novamente !";
+					
+				}
+				txtrOi.setText(texto);
+			}
+        });
+        btnAssunto.setBounds(21, 71, 101, 34);
+        frmListagemVideo.getContentPane().add(btnAssunto);
+        
+        JButton btnUsuario = new JButton("Usuario");
+        btnUsuario.setFont(new Font("Verdana", Font.PLAIN, 14));
+        btnUsuario.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String usuario = textField_1.getText();
+        		ListaVideosUsuario(txtrOi, usuario);
+        	}
+
+			private void ListaVideosUsuario(JTextArea txtrOi, String usuario) {
+				String texto = " ";
+				try {
+					for (Video v : Fachada.consultarVideosPorUsuario(usuario)) {
+	    				texto = texto + 
+	    						"Nome: " + v.getNome() +
+	    						"\n" + v.getListaAssuntos() +
+	    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";}
+	    			
+				} catch (Exception e) {
+					texto = texto + "O Usuario {  " +  usuario + "   } não existe ! \n\n Tente Novamente !";
+					
+				}
+				txtrOi.setText(texto);
+			}
 		});
 
 		btnNewButton.setBounds(20, 26, 101, 34);
 		frmListagemVideo.getContentPane().add(btnNewButton);
 
-		JLabel lblNewLabel = new JLabel("Listar Videos por ... ");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
-		lblNewLabel.setBounds(10, 0, 162, 28);
-		frmListagemVideo.getContentPane().add(lblNewLabel);
-
-		JButton btnAssunto = new JButton("Assunto");
-		btnAssunto.setFont(new Font("Verdana", Font.PLAIN, 14));
-		btnAssunto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String texto = "";
-				for (Video v : Fachada.consultarVideosPorAssunto(textField.getText())) {
-					texto = texto + "Nome: " + v.getNome() + "\n" + v.getListaAssuntos() + "\n" + "Link: " + v.getLink()
-							+ "\n ----- \n";
-					txtrOi.setText(texto);
-				}
-			}
-		});
 		btnAssunto.setBounds(21, 71, 101, 34);
 		frmListagemVideo.getContentPane().add(btnAssunto);
-
-		JButton btnUsuario = new JButton("Usuario");
-		btnUsuario.setFont(new Font("Verdana", Font.PLAIN, 14));
-		btnUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String texto = " ";
-				for (Video v : Fachada.consultarVideosPorUsuario(textField_1.getText())) {
-					texto = texto + "Nome: " + v.getNome() + "\n" + v.getListaAssuntos() + "\n" + "Link: " + v.getLink()
-							+ "\n ----- \n";
-				}
-				txtrOi.setText(texto);
-			}
-		});
+		
 		btnUsuario.setBounds(21, 116, 101, 34);
 		frmListagemVideo.getContentPane().add(btnUsuario);
 
