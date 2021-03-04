@@ -128,18 +128,25 @@ public class TelaListagemVideo {
         btnAssunto.setFont(new Font("Verdana", Font.PLAIN, 14));
         btnAssunto.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		ListaVideosAssunto(txtrOi);
+        		String assunto = textField.getText();
+        		ListaVideosAssunto(txtrOi, assunto);
         	}
 
-			private void ListaVideosAssunto(JTextArea txtrOi) {
+			private void ListaVideosAssunto(JTextArea txtrOi, String assunto) {
 				String texto = " ";
-    			for (Video v : Fachada.consultarVideosPorAssunto("aula")) {
-    				texto = texto + 
-    						"Nome: " + v.getNome() +
-    						"\n" + v.getListaAssuntos() +
-    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
-    			txtrOi.setText(texto);
-    			}
+				try {
+					for (Video v : Fachada.consultarVideosPorAssunto(assunto)) {
+	    				texto = texto + 
+	    						"Nome: " + v.getNome() +
+	    						"\n" + v.getListaAssuntos() +
+	    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
+	    			}
+	    			
+				} catch (Exception e) {
+					texto = texto + "Assunto com a palavra {  " +  assunto + "   } não existe !\n\n Tente Novamente !";
+					
+				}
+				txtrOi.setText(texto);
 			}
         });
         btnAssunto.setBounds(21, 71, 101, 34);
@@ -149,18 +156,24 @@ public class TelaListagemVideo {
         btnUsuario.setFont(new Font("Verdana", Font.PLAIN, 14));
         btnUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		ListaVideosUsuario(txtrOi);
+        		String usuario = textField_1.getText();
+        		ListaVideosUsuario(txtrOi, usuario);
         	}
 
-			private void ListaVideosUsuario(JTextArea txtrOi) {
+			private void ListaVideosUsuario(JTextArea txtrOi, String usuario) {
 				String texto = " ";
-    			for (Video v : Fachada.consultarVideosPorUsuario("ana@gmail.com")) {
-    				texto = texto + 
-    						"Nome: " + v.getNome() +
-    						"\n" + v.getListaAssuntos() +
-    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
-    			}
-    			txtrOi.setText(texto);
+				try {
+					for (Video v : Fachada.consultarVideosPorUsuario(usuario)) {
+	    				texto = texto + 
+	    						"Nome: " + v.getNome() +
+	    						"\n" + v.getListaAssuntos() +
+	    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";}
+	    			
+				} catch (Exception e) {
+					texto = texto + "O Usuario {  " +  usuario + "   } não existe ! \n\n Tente Novamente !";
+					
+				}
+				txtrOi.setText(texto);
 			}
         });
         btnUsuario.setBounds(21, 116, 101, 34);

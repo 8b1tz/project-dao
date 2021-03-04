@@ -19,7 +19,7 @@ public class Cadastrar {
 			vi03 = Fachada.cadastrarVideo("https://www.youtube.com/watch?v=cHHLHGNpCSA&list=RDMMXXYlFuWEuKI&index=3",
 					"Avicii - Waiting For Love", "musica");
 			vi04 = Fachada.cadastrarVideo("https://www.youtube.com/watch?v=KlIL63MeyMY",
-					"Curso POO Teoria #01a​ - O que é Programação Orientada a Objetos", "aula");
+					"Curso POO Teoria  - Aula - 01", "aula");
 
 			Fachada.registrarVisualizacao(
 					"https://www.youtube.com/watch?v=XXYlFuWEuKI&list=RDMMXXYlFuWEuKI&start_radio=1", "ana@gmail.com",

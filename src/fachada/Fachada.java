@@ -191,7 +191,6 @@ public class Fachada {
 	public static List<Video> consultarVideosPorAssunto(String palavra) {
 		if (palavra.isEmpty())
 			return daovideo.readAll();
-
 		else
 			return daovideo.consultarVideosPorAssunto(palavra);
 	}
