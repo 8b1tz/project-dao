@@ -4,18 +4,23 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import fachada.Fachada;
+import modelo.Assunto;
 import modelo.Video;
 import java.awt.Toolkit;
+import javax.swing.JTable;
 
 public class TelaListagemVideo {
 	/**
@@ -25,6 +30,8 @@ public class TelaListagemVideo {
 	private JFrame frmListagemVideo;
 	private JTextField textField_1;
 	private JTextField textField;
+	private JTable table;
+	private JScrollPane scrollPane;
 
 //    public static void main(String[] args) {
 //        EventQueue.invokeLater(new Runnable() {
@@ -53,7 +60,7 @@ public class TelaListagemVideo {
 		frmListagemVideo.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmListagemVideo.setBounds(100, 100, 592, 480);
 		frmListagemVideo.getContentPane().setLayout(null);
-
+		/*
 		JTextArea txtrOi = new JTextArea();
 		txtrOi.setSelectionColor(Color.BLACK);
 		txtrOi.setTabSize(56);
@@ -66,19 +73,73 @@ public class TelaListagemVideo {
 		scroll.setBounds(10, 174, 556, 244);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-
+		 
 		frmListagemVideo.getContentPane().add(scroll);
+		*/
+		
 
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 183, 554, 257);
+		frmListagemVideo.getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setGridColor(Color.BLACK);
+		table.setRequestFocusEnabled(false);
+		table.setFocusable(false);
+		table.setBackground(Color.WHITE);
+		table.setFillsViewportHeight(true);
+		table.setRowSelectionAllowed(true);
+		table.setFont(new Font("Dialog", Font.PLAIN, 15));
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(new DefaultTableModel(
+				new Object[][] {},
+				new String[] {"", "", ""}
+				));
+		table.setShowGrid(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		
 		JButton btnNewButton = new JButton("Todos");
 		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 14));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String texto = " ";
-				for (Video v : Fachada.listarVideos()) {
-					texto = texto + "Nome: " + v.getNome() + "\n" + v.getListaAssuntos() + "\n" + "Link: " + v.getLink()
+				try{
+					DefaultTableModel model = new DefaultTableModel();
+					model.addColumn("Nome");
+					model.addColumn("Assunto");
+					model.addColumn("Link");
+				
+					List<Video> listaVideos = Fachada.listarVideos();
+					
+					for(Video v : listaVideos)
+						for(Assunto a : v.getListaAssuntos())
+							model.addRow(new Object[]{ v.getNome(), a.getPalavra(), v.getLink() });
+
+					table.setModel(model);
+				}
+				catch(Exception erro){
+					JOptionPane.showMessageDialog(frmListagemVideo,erro.getMessage());
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				/*for (Video v : Fachada.listarVideos()) {
+					texto = texto + "Nome: " + v.getNome() + 
+							"\n" + v.getListaAssuntos() + 
+							"\n" + "Link: " + v.getLink()
 							+ "\n ----- \n";
 				}
-				txtrOi.setText(texto);
+				txtrOi.setText(texto); */
 			}
         	
         });
@@ -96,16 +157,37 @@ public class TelaListagemVideo {
         btnAssunto.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String assunto = textField.getText();
-        		ListaVideosAssunto(txtrOi, assunto);
+        		ListaVideosAssunto(assunto);
         	}
 
-			private void ListaVideosAssunto(JTextArea txtrOi, String assunto) {
-				String texto = " ";
+			private void ListaVideosAssunto(String assunto) {
+				
+				try{
+					DefaultTableModel model = new DefaultTableModel();
+					model.addColumn("Nome");
+					model.addColumn("Assunto");
+					model.addColumn("Link");
+				
+					List<Video> listaVideos = Fachada.consultarVideosPorAssunto(assunto);
+					
+					for(Video v : listaVideos)
+						for(Assunto a : v.getListaAssuntos())
+							model.addRow(new Object[]{ v.getNome(), a.getPalavra(), v.getLink() });
+
+					table.setModel(model);
+				}
+				catch(Exception erro){
+					JOptionPane.showMessageDialog(frmListagemVideo,erro.getMessage());
+				}
+				
+				
+				
+				
+				/*
 				try {
 					for (Video v : Fachada.consultarVideosPorAssunto(assunto)) {
 	    				texto = texto + 
-	    						"Nome: " + v.getNome() +
-	    						
+	    						"Nome: " + v.getNome() +	    						
 	    						"\n" + v.getListaAssuntos() +
 	    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
 	    			}
@@ -115,6 +197,7 @@ public class TelaListagemVideo {
 					
 				}
 				txtrOi.setText(texto);
+				*/
 			}
         });
         btnAssunto.setBounds(21, 71, 101, 34);
@@ -125,11 +208,29 @@ public class TelaListagemVideo {
         btnUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String usuario = textField_1.getText();
-        		ListaVideosUsuario(txtrOi, usuario);
+        		ListaVideosUsuario(usuario);
         	}
 
-			private void ListaVideosUsuario(JTextArea txtrOi, String usuario) {
-				String texto = " ";
+			private void ListaVideosUsuario( String usuario) {
+				
+				try{
+					DefaultTableModel model = new DefaultTableModel();
+					model.addColumn("Nome");
+					model.addColumn("Assunto");
+					model.addColumn("Link");
+				
+					List<Video> listaVideos = Fachada.consultarVideosPorUsuario(usuario);
+					
+					for(Video v : listaVideos)
+						for(Assunto a : v.getListaAssuntos())
+							model.addRow(new Object[]{ v.getNome(), a.getPalavra(), v.getLink() });
+
+					table.setModel(model);
+				}
+				catch(Exception erro){
+					JOptionPane.showMessageDialog(frmListagemVideo,erro.getMessage());
+				}
+				/*
 				try {
 					for (Video v : Fachada.consultarVideosPorUsuario(usuario)) {
 	    				texto = texto + 
@@ -142,6 +243,7 @@ public class TelaListagemVideo {
 					
 				}
 				txtrOi.setText(texto);
+				*/
 			}
 		});
 
@@ -163,6 +265,8 @@ public class TelaListagemVideo {
 		textField.setColumns(10);
 		textField.setBounds(149, 73, 264, 34);
 		frmListagemVideo.getContentPane().add(textField);
+		
+
 
 	}
 

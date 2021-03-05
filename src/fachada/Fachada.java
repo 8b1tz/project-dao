@@ -65,24 +65,31 @@ public class Fachada {
 		}
 		Assunto a = daoassunto.read(palavra);
 		v = new Video(link, nome);
-		if (a != null) {
-			v.adicionar(a);
-			a.adicionar(v);
-			daoassunto.update(a);
-			daovideo.update(v);
+		if (palavra != null) {
+			if (a != null) {
+				v.adicionar(a);
+				a.adicionar(v);
+				daoassunto.update(a);
+				daovideo.update(v);
+				daovideo.create(v);
+				DAO.commit();
+				return v;
+			} else {
+				Assunto asu = cadastrarAssunto(palavra);
+				v.adicionar(asu);
+				asu.adicionar(v);
+				daoassunto.create(asu);
+				daoassunto.update(asu);
+				daovideo.update(v);
+				daovideo.create(v);
+				DAO.commit();
+				return v;
+			}
+		} else {
 			daovideo.create(v);
 			DAO.commit();
 			return v;
 		}
-		Assunto asu = cadastrarAssunto(palavra);
-		v.adicionar(asu);
-		asu.adicionar(v);
-		daoassunto.create(asu);
-		daoassunto.update(asu);
-		daovideo.update(v);
-		daovideo.create(v);
-		DAO.commit();
-		return v;
 	}
 
 	public static Visualizacao registrarVisualizacao(String link, String email, int nota) throws Exception {
@@ -93,30 +100,41 @@ public class Fachada {
 			throw new Exception("Video não encontrado");
 		}
 		Usuario u = daousuario.read(email);
-		if (u != null) {
-			Visualizacao visu = new Visualizacao(id++, nota, u, v);
+		if (email != null) {
+			if (u != null) {
+				Visualizacao visu = new Visualizacao(id++, nota, u, v);
+				v.adicionar(visu);
+				v.fazerMedia();
+				daovideo.update(v);
+				u.adicionar(visu);
+				daousuario.update(u);
+				daovisualizacao.create(visu);
+				DAO.commit();
+				return visu;
+			} else {
+				Usuario usu = cadastrarUsuario(email);
+				Visualizacao visu = new Visualizacao(id++, nota, usu, v);
+				v.adicionar(visu);
+				v.fazerMedia();
+				daovideo.update(v);
+				daovideo.create(v);
+				usu.adicionar(visu);
+				daousuario.update(usu);
+				daousuario.create(usu);
+				daovisualizacao.create(visu);
+				DAO.commit();
+				return visu;
+			}
+		} else {
+			Visualizacao visu = new Visualizacao(id++, nota, null, v);
 			v.adicionar(visu);
 			v.fazerMedia();
 			daovideo.update(v);
-			u.adicionar(visu);
-			daousuario.update(u);
+			daovideo.create(v);
 			daovisualizacao.create(visu);
 			DAO.commit();
 			return visu;
 		}
-		Usuario usu = cadastrarUsuario(email);
-		Visualizacao visu = new Visualizacao(id++, nota, usu, v);
-		v.adicionar(visu);
-		v.fazerMedia();
-		daovideo.update(v);
-		daovideo.create(v);
-		usu.adicionar(visu);
-		daousuario.update(usu);
-		daousuario.create(usu);
-		daovisualizacao.create(visu);
-		DAO.commit();
-		return visu;
-
 	}
 
 //--------------------------------------- ATUALIZACAO ---------------------------------------------------------

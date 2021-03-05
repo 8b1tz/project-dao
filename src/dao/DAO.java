@@ -42,7 +42,7 @@ public abstract class DAO<T> implements DAOInterface<T> {
 		config.common().objectClass(Usuario.class).cascadeOnDelete(true);
 		config.common().objectClass(Usuario.class).cascadeOnActivate(true);
 		config.common().objectClass(Visualizacao.class).cascadeOnUpdate(true);
-		config.common().objectClass(Visualizacao.class).cascadeOnDelete(true);
+		config.common().objectClass(Visualizacao.class).cascadeOnDelete(false);
 		config.common().objectClass(Visualizacao.class).cascadeOnActivate(true);
 		// indices
 		config.common().objectClass(Video.class).objectField("link").indexed(true);
