@@ -8,7 +8,6 @@ import dao.DAOAssunto;
 import dao.DAOVisualizacao;
 import dao.DAOusuario;
 import dao.DAOvideo;
-import jdk.jfr.events.FileForceEvent;
 import modelo.Assunto;
 import modelo.Usuario;
 import modelo.Video;
@@ -155,6 +154,10 @@ public class Fachada {
 //--------------------------------------- ATUALIZACAO ---------------------------------------------------------
 	public static void adicionarAssunto(String link, String palavra) throws Exception {
 		DAO.begin();
+		if (palavra == null) {
+			DAO.rollback();
+			throw new Exception("Assunto nulo não pode ser adicionado!");
+		}
 		Video v = daovideo.read(link);
 		if (v == null) {
 			DAO.rollback();
