@@ -92,11 +92,11 @@ public class TelaRegistroVisualizacao extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(email.getText() != null) {
-						Fachada.registrarVisualizacao(link.getText(), email.getText(), Integer.parseInt(nota.getText()));
+					if (email.getText() != null) {
+						Fachada.registrarVisualizacao(link.getText(), email.getText(),
+								Integer.parseInt(nota.getText()));
 						saida.setText("Visualização cadastrada!");
-					}
-					else {
+					} else {
 						Fachada.registrarVisualizacao(link.getText(), Integer.parseInt(nota.getText()));
 						saida.setText("Visualização cadastrada!");
 					}
