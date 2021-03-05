@@ -1,5 +1,6 @@
 package fachada;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.DAO;
@@ -7,6 +8,7 @@ import dao.DAOAssunto;
 import dao.DAOVisualizacao;
 import dao.DAOusuario;
 import dao.DAOvideo;
+import jdk.jfr.events.FileForceEvent;
 import modelo.Assunto;
 import modelo.Usuario;
 import modelo.Video;
@@ -204,20 +206,47 @@ public class Fachada {
 	public static List<Usuario> listarUsuarios() {
 		return daousuario.readAll();
 	}
-
-// ------------ CONSULTAS -------------------------------------------
-	public static List<Video> consultarVideosPorAssunto(String palavra) {
-		if (palavra.isEmpty())
-			return daovideo.readAll();
-		else
-			return daovideo.consultarVideosPorAssunto(palavra);
+	
+	public static List<Assunto> listarAssuntos() {
+		return daoassunto.readAll();
 	}
 
-	public static List<Video> consultarVideosPorUsuario(String email) {
+// ------------ CONSULTAS -------------------------------------------
+	public static List<Video> consultarVideosPorAssunto(String palavra) throws Exception {
+		boolean existe = false;
+		List<Video> lista = new ArrayList<Video>();
+		if (palavra.isEmpty())
+			lista = daovideo.readAll();
+		for (Assunto a : listarAssuntos()) {
+			if (a.getPalavra().equals(palavra)) {
+				lista = daovideo.consultarVideosPorAssunto(palavra);
+				existe = true; 
+				break;
+			}
+		}
+		if (existe == false){
+			throw new Exception("Assunto com a palavra {   "+ palavra +"     } nao existe ") ;
+		}
+		return lista;
+	}
+
+	public static List<Video> consultarVideosPorUsuario(String email)  throws Exception {
+		boolean existe = false;
+		List<Video> lista = new ArrayList<Video>();
 		if (email.isEmpty())
-			return daovideo.readAll();
-		else
-			return daovideo.consultarVideosPorUsuario(email);
+			lista = daovideo.readAll();
+		
+		for (Usuario u : listarUsuarios()) {
+			if (u.getEmail().equals(email)) {
+				lista = daovideo.consultarVideosPorUsuario(email);
+				existe = true; 
+				break;
+			}
+		}
+		if (existe == false){
+			throw new Exception("Usuario com email {   "+ email +"     } nao existe ") ;
+		}
+		return lista;
 	}
 
 	public static List<Usuario> consultarUsuariosPorVideo(String link) {

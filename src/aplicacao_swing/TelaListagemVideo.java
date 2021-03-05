@@ -60,24 +60,6 @@ public class TelaListagemVideo {
 		frmListagemVideo.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmListagemVideo.setBounds(100, 100, 592, 480);
 		frmListagemVideo.getContentPane().setLayout(null);
-		/*
-		JTextArea txtrOi = new JTextArea();
-		txtrOi.setSelectionColor(Color.BLACK);
-		txtrOi.setTabSize(56);
-		txtrOi.setEditable(false);
-		txtrOi.setLineWrap(true);
-		txtrOi.setText("Selecione uma opcçao");
-		txtrOi.setFont(new Font("Candara", Font.PLAIN, 18));
-		txtrOi.setBounds(20, 168, 393, 262);
-		JScrollPane scroll = new JScrollPane(txtrOi);
-		scroll.setBounds(10, 174, 556, 244);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		 
-		frmListagemVideo.getContentPane().add(scroll);
-		*/
-		
-
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 183, 554, 257);
@@ -121,25 +103,7 @@ public class TelaListagemVideo {
 				}
 				catch(Exception erro){
 					JOptionPane.showMessageDialog(frmListagemVideo,erro.getMessage());
-				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				/*for (Video v : Fachada.listarVideos()) {
-					texto = texto + "Nome: " + v.getNome() + 
-							"\n" + v.getListaAssuntos() + 
-							"\n" + "Link: " + v.getLink()
-							+ "\n ----- \n";
-				}
-				txtrOi.setText(texto); */
+				}	
 			}
         	
         });
@@ -179,25 +143,6 @@ public class TelaListagemVideo {
 				catch(Exception erro){
 					JOptionPane.showMessageDialog(frmListagemVideo,erro.getMessage());
 				}
-				
-				
-				
-				
-				/*
-				try {
-					for (Video v : Fachada.consultarVideosPorAssunto(assunto)) {
-	    				texto = texto + 
-	    						"Nome: " + v.getNome() +	    						
-	    						"\n" + v.getListaAssuntos() +
-	    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
-	    			}
-	    			
-				} catch (Exception e) {
-					texto = texto + "Assunto com a palavra {  " +  assunto + "   } não existe !\n\n Tente Novamente !";
-					
-				}
-				txtrOi.setText(texto);
-				*/
 			}
         });
         btnAssunto.setBounds(21, 71, 101, 34);
@@ -230,20 +175,6 @@ public class TelaListagemVideo {
 				catch(Exception erro){
 					JOptionPane.showMessageDialog(frmListagemVideo,erro.getMessage());
 				}
-				/*
-				try {
-					for (Video v : Fachada.consultarVideosPorUsuario(usuario)) {
-	    				texto = texto + 
-	    						"Nome: " + v.getNome() +
-	    						"\n" + v.getListaAssuntos() +
-	    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";}
-	    			
-				} catch (Exception e) {
-					texto = texto + "O Usuario {  " +  usuario + "   } não existe ! \n\n Tente Novamente !";
-					
-				}
-				txtrOi.setText(texto);
-				*/
 			}
 		});
 
