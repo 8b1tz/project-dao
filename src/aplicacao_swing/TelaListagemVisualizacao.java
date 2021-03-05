@@ -2,90 +2,136 @@ package aplicacao_swing;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import fachada.Fachada;
 import modelo.Visualizacao;
+import java.awt.Toolkit;
 
 public class TelaListagemVisualizacao {
-	/**
-	 * 
-	 */
-	// private static final long serialVersionUID = 1L;
+
 	private JFrame frmListagemVisu;
+	private JTable table;
+	private JScrollPane scrollPane;
+	private JButton button;
+	private JButton button_1;
 
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    TelaListagemVideo window = new TelaListagemVideo();
-//                    window.frmListagemVideo.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//
-//    }
+	/**
+	 * Launch the application.
+	 */
+	// public static void main(String[] args) {
+	// EventQueue.invokeLater(new Runnable() {
+	// public void run() {
+	// try {
+	// TelaListar window = new TelaListar();
+	// window.frame.setVisible(true);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// });
+	// }
 
+	/**
+	 * Create the application.
+	 */
 	public TelaListagemVisualizacao() {
 		initialize();
 	}
 
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	private void initialize() {
-		// Fachada.inicializar();
 		frmListagemVisu = new JFrame();
+		frmListagemVisu.setIconImage(
+				Toolkit.getDefaultToolkit().getImage(TelaListagemVisualizacao.class.getResource("/imagem/icon.png")));
 		frmListagemVisu.setResizable(false);
-		frmListagemVisu.setIconImage(Toolkit.getDefaultToolkit().getImage(TelaListagemVisualizacao.class.getResource("/imagem/icon.png")));
-		frmListagemVisu.setTitle("Listagem de visualiza\u00E7oes");
-		frmListagemVisu.getContentPane().setBackground(Color.LIGHT_GRAY);
-		frmListagemVisu.setBounds(100, 100, 592, 480);
+		frmListagemVisu.setTitle("Listagem de visualizacao");
+		frmListagemVisu.setBounds(100, 100, 505, 323);
+		frmListagemVisu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmListagemVisu.getContentPane().setLayout(null);
 
-		JTextArea txtrOi = new JTextArea();
-		txtrOi.setSelectionColor(Color.BLACK);
-		txtrOi.setTabSize(56);
-		txtrOi.setEditable(false);
-		txtrOi.setLineWrap(true);
-		txtrOi.setText("Selecione uma opcçao");
-		txtrOi.setFont(new Font("Candara", Font.PLAIN, 18));
-		txtrOi.setBounds(20, 168, 393, 262);
-		JScrollPane scroll = new JScrollPane(txtrOi);
-		scroll.setBounds(10, 113, 556, 244);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(44, 33, 409, 116);
+		frmListagemVisu.getContentPane().add(scrollPane);
 
-		frmListagemVisu.getContentPane().add(scroll);
+		table = new JTable();
 
-		JButton btnNewButton = new JButton("Listar");
-		btnNewButton.setBounds(10, 386, 101, 34);
-		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 14));
-		btnNewButton.addActionListener(new ActionListener() {
+		table.setGridColor(Color.BLACK);
+		table.setRequestFocusEnabled(false);
+		table.setFocusable(false);
+		table.setBackground(Color.YELLOW);
+		table.setFillsViewportHeight(true);
+		table.setRowSelectionAllowed(true);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		scrollPane.setViewportView(table);
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "", "", "" }));
+		table.setShowGrid(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+		button = new JButton("Listar Visualizacoes");
+		button.setHorizontalAlignment(SwingConstants.LEFT);
+		button.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String texto = " ";
-				for (Visualizacao v : Fachada.listarVisualizacoes()) {
-					texto = texto + "Id da visualização: " + v.getId() +"\n Nome do vídeo: " + v.getVideo() + "\n Usuario: " + v.getUsuario()
-							+ "\n ----- \n";
+				try {
+					DefaultTableModel model = new DefaultTableModel();
+					model.addColumn("id");
+					model.addColumn("video");
+					model.addColumn("usuario");
+					model.addColumn("nota");
+
+					List<Visualizacao> lista = Fachada.listarVisualizacoes();
+					for (Visualizacao v : lista) {
+						model.addRow(new Object[] { v.getId(), v.getVideo().getLink(), v.getUsuario().getEmail(),
+								v.getNota() });
+
+						table.setModel(model);
+					}
+				} catch (Exception erro) {
+					JOptionPane.showMessageDialog(frmListagemVisu, erro.getMessage());
 				}
-				txtrOi.setText(texto);
 			}
 		});
-		frmListagemVisu.getContentPane().add(btnNewButton);
-		
-		JLabel lblNewLabel = new JLabel("LISTAR VISUALIZA\u00C7\u00C3O");
-		lblNewLabel.setFont(new Font("Sitka Small", Font.PLAIN, 26));
-		lblNewLabel.setBounds(116, 28, 383, 73);
-		frmListagemVisu.getContentPane().add(lblNewLabel);
+		button.setBounds(44, 172, 200, 23);
+		frmListagemVisu.getContentPane().add(button);
 
+		button_1 = new JButton("Apagar visualização selecionada");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow() >= 0) {
+					int id = (Integer) table.getValueAt(table.getSelectedRow(), 0);
+					try {
+						Fachada.apagarVisualizacao(id);
+						button.doClick();
+					} catch (Exception erro) {
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "selecionar uma linha");
+				}
+			}
+		});
+		button_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		button_1.setHorizontalAlignment(SwingConstants.LEFT);
+		button_1.setBounds(44, 206, 200, 23);
+		frmListagemVisu.getContentPane().add(button_1);
+
+		frmListagemVisu.setVisible(true);
 	}
 
 	public JFrame getFrmListagemVisu() {
@@ -95,4 +141,5 @@ public class TelaListagemVisualizacao {
 	public void setFrmListagemVisu(JFrame frmListagemVisu) {
 		this.frmListagemVisu = frmListagemVisu;
 	}
+
 }
