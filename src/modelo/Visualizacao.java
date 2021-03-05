@@ -36,7 +36,7 @@ public class Visualizacao {
 		this.id = id;
 	}
 
-	public double getNota() {
+	public int getNota() {
 		return nota;
 	}
 

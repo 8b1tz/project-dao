@@ -58,6 +58,19 @@ public class Fachada {
 
 	}
 
+	public static Video cadastrarVideo(String link, String nome) throws Exception {
+		DAO.begin();
+		Video v = daovideo.read(link);
+		if (v != null) {
+			DAO.rollback();
+			throw new Exception("Video ja cadastrado: " + link);
+		}
+		v = new Video(link, nome);
+		daovideo.create(v);
+		DAO.commit();
+		return v;
+	}
+
 	public static Video cadastrarVideo(String link, String nome, String palavra) throws Exception {
 		DAO.begin();
 		Video v = daovideo.read(link);
@@ -67,31 +80,42 @@ public class Fachada {
 		}
 		Assunto a = daoassunto.read(palavra);
 		v = new Video(link, nome);
-		if (palavra != null) {
-			if (a != null) {
-				v.adicionar(a);
-				a.adicionar(v);
-				daoassunto.update(a);
-				daovideo.update(v);
-				daovideo.create(v);
-				DAO.commit();
-				return v;
-			} else {
-				Assunto asu = cadastrarAssunto(palavra);
-				v.adicionar(asu);
-				asu.adicionar(v);
-				daoassunto.create(asu);
-				daoassunto.update(asu);
-				daovideo.update(v);
-				daovideo.create(v);
-				DAO.commit();
-				return v;
-			}
+		if (a != null) {
+			v.adicionar(a);
+			a.adicionar(v);
+			daoassunto.update(a);
+			daovideo.update(v);
+			daovideo.create(v);
+			DAO.commit();
+			return v;
 		} else {
+			Assunto asu = cadastrarAssunto(palavra);
+			v.adicionar(asu);
+			asu.adicionar(v);
+			daoassunto.create(asu);
+			daoassunto.update(asu);
+			daovideo.update(v);
 			daovideo.create(v);
 			DAO.commit();
 			return v;
 		}
+	}
+
+	public static Visualizacao registrarVisualizacao(String link, int nota) throws Exception {
+		DAO.begin();
+		Video v = daovideo.read(link);
+		if (v == null) {
+			DAO.rollback();
+			throw new Exception("Video não encontrado");
+		}
+		Visualizacao visu = new Visualizacao(id++, nota, null, v);
+		v.adicionar(visu);
+		//v.fazerMedia();
+		daovideo.update(v);
+		daovideo.create(v);
+		daovisualizacao.create(visu);
+		DAO.commit();
+		return visu;
 	}
 
 	public static Visualizacao registrarVisualizacao(String link, String email, int nota) throws Exception {
@@ -102,37 +126,26 @@ public class Fachada {
 			throw new Exception("Video não encontrado");
 		}
 		Usuario u = daousuario.read(email);
-		if (email != null) {
-			if (u != null) {
-				Visualizacao visu = new Visualizacao(id++, nota, u, v);
-				v.adicionar(visu);
-				v.fazerMedia();
-				daovideo.update(v);
-				u.adicionar(visu);
-				daousuario.update(u);
-				daovisualizacao.create(visu);
-				DAO.commit();
-				return visu;
-			} else {
-				Usuario usu = cadastrarUsuario(email);
-				Visualizacao visu = new Visualizacao(id++, nota, usu, v);
-				v.adicionar(visu);
-				v.fazerMedia();
-				daovideo.update(v);
-				daovideo.create(v);
-				usu.adicionar(visu);
-				daousuario.update(usu);
-				daousuario.create(usu);
-				daovisualizacao.create(visu);
-				DAO.commit();
-				return visu;
-			}
+		if (u != null) {
+			Visualizacao visu = new Visualizacao(id++, nota, u, v);
+			v.adicionar(visu);
+			//v.fazerMedia();
+			daovideo.update(v);
+			u.adicionar(visu);
+			daousuario.update(u);
+			daovisualizacao.create(visu);
+			DAO.commit();
+			return visu;
 		} else {
-			Visualizacao visu = new Visualizacao(id++, nota, null, v);
+			Usuario usu = cadastrarUsuario(email);
+			Visualizacao visu = new Visualizacao(id++, nota, usu, v);
 			v.adicionar(visu);
 			v.fazerMedia();
 			daovideo.update(v);
 			daovideo.create(v);
+			usu.adicionar(visu);
+			daousuario.update(usu);
+			daousuario.create(usu);
 			daovisualizacao.create(visu);
 			DAO.commit();
 			return visu;
@@ -206,7 +219,7 @@ public class Fachada {
 	public static List<Usuario> listarUsuarios() {
 		return daousuario.readAll();
 	}
-	
+
 	public static List<Assunto> listarAssuntos() {
 		return daoassunto.readAll();
 	}
@@ -216,35 +229,34 @@ public class Fachada {
 		boolean existe = false;
 		List<Video> lista = new ArrayList<Video>();
 		if (palavra.isEmpty())
-			lista = daovideo.readAll();
+			return daovideo.readAll();
 		for (Assunto a : listarAssuntos()) {
 			if (a.getPalavra().equals(palavra)) {
 				lista = daovideo.consultarVideosPorAssunto(palavra);
-				existe = true; 
+				existe = true;
 				break;
 			}
 		}
-		if (existe == false){
-			throw new Exception("Assunto com a palavra {   "+ palavra +"     } nao existe ") ;
+		if (existe == false) {
+			throw new Exception("Assunto com a palavra {   " + palavra + "     } nao existe ");
 		}
 		return lista;
 	}
 
-	public static List<Video> consultarVideosPorUsuario(String email)  throws Exception {
+	public static List<Video> consultarVideosPorUsuario(String email) throws Exception {
 		boolean existe = false;
 		List<Video> lista = new ArrayList<Video>();
 		if (email.isEmpty())
-			lista = daovideo.readAll();
-		
+			return daovideo.readAll();
 		for (Usuario u : listarUsuarios()) {
 			if (u.getEmail().equals(email)) {
 				lista = daovideo.consultarVideosPorUsuario(email);
-				existe = true; 
+				existe = true;
 				break;
 			}
 		}
-		if (existe == false){
-			throw new Exception("Usuario com email {   "+ email +"     } nao existe ") ;
+		if (existe == false) {
+			throw new Exception("Usuario com email {   " + email + "     } nao existe ");
 		}
 		return lista;
 	}

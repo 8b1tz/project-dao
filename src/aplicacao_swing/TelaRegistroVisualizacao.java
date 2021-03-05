@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import fachada.Fachada;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class TelaRegistroVisualizacao extends JFrame {
 	/**
@@ -75,16 +77,25 @@ public class TelaRegistroVisualizacao extends JFrame {
 		text.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
 		text.setBounds(51, 128, 56, 22);
 		frmRegistroVisu.getContentPane().add(text);
-
+		
+		/*
 		nota = new JTextField();
 		nota.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		nota.setColumns(10);
-		nota.setBounds(152, 175, 38, 22);
+		nota.setBounds(194, 175, 38, 22);
 		frmRegistroVisu.getContentPane().add(nota);
+		*/
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"0", "1", "2", "3", "4", "5"}));
+		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		comboBox.setBounds(113, 177, 61, 30);
+		frmRegistroVisu.getContentPane().add(comboBox);
+
 
 		JLabel lblNewLabel_1 = new JLabel("nota");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(93, 175, 62, 18);
+		lblNewLabel_1.setBounds(51, 175, 62, 18);
 		frmRegistroVisu.getContentPane().add(lblNewLabel_1);
 
 		JButton buttonRegistrar = new JButton("Registrar");
@@ -92,10 +103,16 @@ public class TelaRegistroVisualizacao extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-
-					Fachada.registrarVisualizacao(link.getText(), email.getText(), Integer.parseInt(nota.getText()));
-					saida.setText("Visualização cadastrada!");
-
+					if(email.getText() != null) {
+						System.out.println(comboBox.getSelectedItem().toString());
+						Fachada.registrarVisualizacao(link.getText(), email.getText(), Integer.parseInt(comboBox.getSelectedItem().toString()));
+						saida.setText("Visualização cadastrada!");
+					}
+					else {
+						Fachada.registrarVisualizacao(link.getText(), Integer.parseInt(comboBox.getSelectedItem().toString()));
+						saida.setText("Visualização cadastrada!");
+					}
+//https://www.youtube.com/watch?v=XXYlFuWEuKI&list=RDMMXXYlFuWEuKI&start_radio=1
 				} catch (Exception e1) {
 					saida.setText(e1.getMessage());
 					e1.printStackTrace();
@@ -111,7 +128,7 @@ public class TelaRegistroVisualizacao extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 20));
 		lblNewLabel_2.setBounds(93, 10, 224, 29);
 		frmRegistroVisu.getContentPane().add(lblNewLabel_2);
-
+		
 	}
 
 	public JFrame getFrmRegistroVisu() {
