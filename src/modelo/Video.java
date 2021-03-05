@@ -15,6 +15,10 @@ public class Video {
 		this.nome = nome;
 	}
 
+	public double getMedia() {
+		return media;
+	}
+
 	public String getNome() {
 		return nome;
 	}
