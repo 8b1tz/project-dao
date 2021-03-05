@@ -219,7 +219,7 @@ public class Fachada {
 	public static List<Usuario> listarUsuarios() {
 		return daousuario.readAll();
 	}
-	
+
 	public static List<Assunto> listarAssuntos() {
 		return daoassunto.readAll();
 	}
@@ -229,35 +229,34 @@ public class Fachada {
 		boolean existe = false;
 		List<Video> lista = new ArrayList<Video>();
 		if (palavra.isEmpty())
-			lista = daovideo.readAll();
+			return daovideo.readAll();
 		for (Assunto a : listarAssuntos()) {
 			if (a.getPalavra().equals(palavra)) {
 				lista = daovideo.consultarVideosPorAssunto(palavra);
-				existe = true; 
+				existe = true;
 				break;
 			}
 		}
-		if (existe == false){
-			throw new Exception("Assunto com a palavra {   "+ palavra +"     } nao existe ") ;
+		if (existe == false) {
+			throw new Exception("Assunto com a palavra {   " + palavra + "     } nao existe ");
 		}
 		return lista;
 	}
 
-	public static List<Video> consultarVideosPorUsuario(String email)  throws Exception {
+	public static List<Video> consultarVideosPorUsuario(String email) throws Exception {
 		boolean existe = false;
 		List<Video> lista = new ArrayList<Video>();
 		if (email.isEmpty())
-			lista = daovideo.readAll();
-		
+			return daovideo.readAll();
 		for (Usuario u : listarUsuarios()) {
 			if (u.getEmail().equals(email)) {
 				lista = daovideo.consultarVideosPorUsuario(email);
-				existe = true; 
+				existe = true;
 				break;
 			}
 		}
-		if (existe == false){
-			throw new Exception("Usuario com email {   "+ email +"     } nao existe ") ;
+		if (existe == false) {
+			throw new Exception("Usuario com email {   " + email + "     } nao existe ");
 		}
 		return lista;
 	}
