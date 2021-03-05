@@ -105,6 +105,7 @@ public class TelaListagemVideo {
 					for (Video v : Fachada.consultarVideosPorAssunto(assunto)) {
 	    				texto = texto + 
 	    						"Nome: " + v.getNome() +
+	    						
 	    						"\n" + v.getListaAssuntos() +
 	    						"\n"+ "Link: " +  v.getLink() + "\n ----- \n";
 	    			}
