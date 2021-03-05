@@ -129,12 +129,13 @@ public class TelaListagemVideo {
 					model.addColumn("Nome");
 					model.addColumn("Assunto");
 					model.addColumn("Link");
+					model.addColumn("Classificacao");
 
 					List<Video> listaVideos = Fachada.consultarVideosPorAssunto(assunto);
 
 					for (Video v : listaVideos)
 						for (Assunto a : v.getListaAssuntos())
-							model.addRow(new Object[] { v.getNome(), a.getPalavra(), v.getLink() });
+							model.addRow(new Object[] { v.getNome(), a.getPalavra(), v.getLink(), v.getMedia() });
 
 					table.setModel(model);
 				} catch (Exception erro) {
@@ -160,12 +161,13 @@ public class TelaListagemVideo {
 					model.addColumn("Nome");
 					model.addColumn("Assunto");
 					model.addColumn("Link");
-
+					model.addColumn("Classificacao");
+					
 					List<Video> listaVideos = Fachada.consultarVideosPorUsuario(usuario);
 
 					for (Video v : listaVideos)
 						for (Assunto a : v.getListaAssuntos())
-							model.addRow(new Object[] { v.getNome(), a.getPalavra(), v.getLink() });
+							model.addRow(new Object[] { v.getNome(), a.getPalavra(), v.getLink(), v.getMedia() });
 
 					table.setModel(model);
 				} catch (Exception erro) {

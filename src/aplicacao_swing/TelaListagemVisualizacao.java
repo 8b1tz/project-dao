@@ -98,9 +98,7 @@ public class TelaListagemVisualizacao {
 
 					List<Visualizacao> lista = Fachada.listarVisualizacoes();
 					for (Visualizacao v : lista) {
-						model.addRow(new Object[] { v.getId(), v.getVideo().getLink(), v.getUsuario().getEmail(),
-								v.getNota() });
-
+						model.addRow(new Object[] { v.getId(), v.getVideo(), v.getUsuario(),v.getNota() });
 						table.setModel(model);
 					}
 				} catch (Exception erro) {

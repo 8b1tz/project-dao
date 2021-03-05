@@ -31,10 +31,6 @@ public class Fachada {
 // ------------------------- CADASTROS --------------------------------------------
 	public static Assunto cadastrarAssunto(String palavra) throws Exception {
 		DAO.begin();
-		if (palavra.isEmpty()) {
-			DAO.rollback();
-			throw new Exception("O assunto tem que ter palavra!");
-		}
 		Assunto a = daoassunto.read(palavra);
 		if (a != null) {
 			DAO.rollback();
@@ -49,10 +45,6 @@ public class Fachada {
 
 	public static Usuario cadastrarUsuario(String email) throws Exception {
 		DAO.begin();
-		if (email.isEmpty()) {
-			DAO.rollback();
-			throw new Exception("O usuario tem que ter email! ");
-		}
 		Usuario u = daousuario.read(email);
 		if (u != null) {
 			DAO.rollback();
