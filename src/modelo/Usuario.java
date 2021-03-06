@@ -18,6 +18,10 @@ public class Usuario {
 	public void adicionar(Visualizacao vis) {
 		visualizacoes.add(vis);
 	}
+	public void remover(Visualizacao vis) {
+		vis.setUsuario(null);
+		visualizacoes.remove(vis);
+	}
 
 	@Override
 	public String toString() {

@@ -36,13 +36,17 @@ public class Video {
 	}
 
 	public void remover(Visualizacao vis) {
+		vis.setVideo(null);
 		visualizacoes.remove(vis);
 	}
 
 	public List<Assunto> getListaAssuntos() {
 		return assuntos;
 	}
-
+	public List<Visualizacao> getVisualizacoes(){
+		return visualizacoes;
+	}
+	
 	public void fazerMedia() {
 		double soma = 0;
 		for (Visualizacao v : visualizacoes) {

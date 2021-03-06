@@ -220,16 +220,21 @@ public class Fachada {
 
 	public static void apagarVisualizacao(int id) throws Exception {
 		DAO.begin();
-		Visualizacao visu = daovisualizacao.read(id);
-		if (visu == null) {
+		Visualizacao vi = daovisualizacao.read(id);
+		if (vi == null) {
 			DAO.rollback();
-			throw new Exception("Visualizacão inexistente " + visu);
+			throw new Exception("visualizacao inexistente");
 		}
-		List<Video> v = listarVideos();
-		for (Video vi : v) {
-			vi.remover(visu);
-		}
-		daovisualizacao.delete(visu);
+		Video v = vi.getVideo();
+		Usuario u = vi.getUsuario();
+		v.remover(vi);
+		u.remover(vi);
+		vi.setUsuario(null);
+		;
+		vi.setVideo(null);
+		daousuario.update(u);
+		daovideo.update(v);
+		daovisualizacao.delete(vi);
 		DAO.commit();
 	}
 
