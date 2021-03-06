@@ -22,7 +22,6 @@ public class TelaRegistroVisualizacao extends JFrame {
 	private JFrame frmRegistroVisu;
 	private JTextField link;
 	private JTextField email;
-	private JTextField nota;
 
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
@@ -111,15 +110,6 @@ public class TelaRegistroVisualizacao extends JFrame {
 					}
 					else {
 						Fachada.registrarVisualizacao(link.getText(), Integer.parseInt(comboBox.getSelectedItem().toString()));
-					}
-					if (email.getText() != null) {
-						Fachada.registrarVisualizacao(link.getText(), email.getText(),
-								Integer.parseInt(nota.getText()));
-						saida.setText("Visualização cadastrada!");
-					} else {
-						Fachada.registrarVisualizacao(link.getText(), Integer.parseInt(nota.getText()));
-
-						saida.setText("Visualização cadastrada!");
 					}
 //https://www.youtube.com/watch?v=XXYlFuWEuKI&list=RDMMXXYlFuWEuKI&start_radio=1
 				} catch (Exception e1) {
