@@ -1,11 +1,10 @@
 package modelo;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Visualizacao {
 	private int id;
-	private LocalDateTime datahora = LocalDateTime.now();
+	private String datahora = String.valueOf((LocalDateTime.now()));
 	private int nota;
 	private Usuario usuario;
 	private Video video;
@@ -43,7 +42,7 @@ public class Visualizacao {
 	@Override
 	public String toString() {
 		return "Visualizacao [id=" + id + ", datahora="
-				+ datahora.format(DateTimeFormatter.ofPattern("dd/MM/yyy hh:mm:ss")) + ", nota=" + nota + "\n usuario="
+				+ datahora + ", nota=" + nota + "\n usuario="
 				+ usuario.getEmail() + ", video=" + video.getNome() + "]";
 	}
 

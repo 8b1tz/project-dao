@@ -67,22 +67,22 @@ public class TelaListagemVisualizacao {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(21, 29, 543, 311);
 		frmListagemVisu.getContentPane().add(scrollPane);
-		
-				table = new JTable();
-				scrollPane.setColumnHeaderView(table);
-				
-						table.setGridColor(Color.BLACK);
-						table.setRequestFocusEnabled(false);
-						table.setFocusable(false);
-						table.setBackground(Color.YELLOW);
-						table.setFillsViewportHeight(true);
-						table.setRowSelectionAllowed(true);
-						table.setFont(new Font("Tahoma", Font.PLAIN, 12));
-						table.setBorder(new LineBorder(new Color(0, 0, 0)));
-						table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-						table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "", "", "" }));
-						table.setShowGrid(true);
-						table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+		table = new JTable();
+		scrollPane.setColumnHeaderView(table);
+
+		table.setGridColor(Color.BLACK);
+		table.setRequestFocusEnabled(false);
+		table.setFocusable(false);
+		table.setBackground(Color.YELLOW);
+		table.setFillsViewportHeight(true);
+		table.setRowSelectionAllowed(true);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "", "", "" }));
+		table.setShowGrid(true);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
 		button = new JButton("Listar Visualizacoes");
 		button.setHorizontalAlignment(SwingConstants.LEFT);
@@ -98,7 +98,7 @@ public class TelaListagemVisualizacao {
 
 					List<Visualizacao> lista = Fachada.listarVisualizacoes();
 					for (Visualizacao v : lista) {
-						model.addRow(new Object[] { v.getId(), v.getVideo(), v.getUsuario(),v.getNota() });
+						model.addRow(new Object[] { v.getId(), v.getVideo().getLink(), v.getUsuario().getEmail(), v.getNota() });
 						table.setModel(model);
 					}
 				} catch (Exception erro) {

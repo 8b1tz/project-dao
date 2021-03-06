@@ -94,7 +94,7 @@ public class TelaCadastroVideo extends JFrame {
 		buttonCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (!palavra.getText().isEmpty()) {
+					if (palavra.getText() != null) {
 						Fachada.cadastrarVideo(link.getText(), nome.getText(), palavra.getText());
 						saida.setText("Cadastro do vídeo " + nome.getText() + " com sucesso!");
 					} else {

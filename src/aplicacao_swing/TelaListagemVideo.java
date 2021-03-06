@@ -162,7 +162,7 @@ public class TelaListagemVideo {
 					model.addColumn("Assunto");
 					model.addColumn("Link");
 					model.addColumn("Classificacao");
-					
+
 					List<Video> listaVideos = Fachada.consultarVideosPorUsuario(usuario);
 
 					for (Video v : listaVideos)
