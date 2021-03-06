@@ -103,6 +103,7 @@ public class TelaRegistroVisualizacao extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+
 					if(email.getText() != null) {
 						System.out.println(comboBox.getSelectedItem().toString());
 						Fachada.registrarVisualizacao(link.getText(), email.getText(), Integer.parseInt(comboBox.getSelectedItem().toString()));
@@ -110,6 +111,14 @@ public class TelaRegistroVisualizacao extends JFrame {
 					}
 					else {
 						Fachada.registrarVisualizacao(link.getText(), Integer.parseInt(comboBox.getSelectedItem().toString()));
+					}
+					if (email.getText() != null) {
+						Fachada.registrarVisualizacao(link.getText(), email.getText(),
+								Integer.parseInt(nota.getText()));
+						saida.setText("Visualização cadastrada!");
+					} else {
+						Fachada.registrarVisualizacao(link.getText(), Integer.parseInt(nota.getText()));
+
 						saida.setText("Visualização cadastrada!");
 					}
 //https://www.youtube.com/watch?v=XXYlFuWEuKI&list=RDMMXXYlFuWEuKI&start_radio=1

@@ -8,7 +8,6 @@ import dao.DAOAssunto;
 import dao.DAOVisualizacao;
 import dao.DAOusuario;
 import dao.DAOvideo;
-import jdk.jfr.events.FileForceEvent;
 import modelo.Assunto;
 import modelo.Usuario;
 import modelo.Video;
@@ -32,6 +31,10 @@ public class Fachada {
 // ------------------------- CADASTROS --------------------------------------------
 	public static Assunto cadastrarAssunto(String palavra) throws Exception {
 		DAO.begin();
+		if (palavra == null) {
+			DAO.rollback();
+			throw new Exception("O assunto tem que ter palavra!");
+		}
 		Assunto a = daoassunto.read(palavra);
 		if (a != null) {
 			DAO.rollback();
@@ -46,6 +49,10 @@ public class Fachada {
 
 	public static Usuario cadastrarUsuario(String email) throws Exception {
 		DAO.begin();
+		if (email == null) {
+			DAO.rollback();
+			throw new Exception("O usuario tem que ter email! ");
+		}
 		Usuario u = daousuario.read(email);
 		if (u != null) {
 			DAO.rollback();
@@ -60,6 +67,14 @@ public class Fachada {
 
 	public static Video cadastrarVideo(String link, String nome) throws Exception {
 		DAO.begin();
+		if (nome == null) {
+			DAO.rollback();
+			throw new Exception("O video precisa de um nome!");
+		}
+		if (link == null) {
+			DAO.rollback();
+			throw new Exception("Precisa-se de um link para cadastrar! ");
+		}
 		Video v = daovideo.read(link);
 		if (v != null) {
 			DAO.rollback();
@@ -73,6 +88,14 @@ public class Fachada {
 
 	public static Video cadastrarVideo(String link, String nome, String palavra) throws Exception {
 		DAO.begin();
+		if (link == null) {
+			DAO.rollback();
+			throw new Exception("Precisa-se de um link para cadastrar! ");
+		}
+		if (nome == null) {
+			DAO.rollback();
+			throw new Exception("O video precisa de um nome!");
+		}
 		Video v = daovideo.read(link);
 		if (v != null) {
 			DAO.rollback();
@@ -103,6 +126,9 @@ public class Fachada {
 
 	public static Visualizacao registrarVisualizacao(String link, int nota) throws Exception {
 		DAO.begin();
+		if (link == null) {
+			throw new Exception("Precisa-se de um link para registrar! ");
+		}
 		Video v = daovideo.read(link);
 		if (v == null) {
 			DAO.rollback();
@@ -120,6 +146,9 @@ public class Fachada {
 
 	public static Visualizacao registrarVisualizacao(String link, String email, int nota) throws Exception {
 		DAO.begin();
+		if (link == null) {
+			throw new Exception("Precisa-se de um link para registrar! ");
+		}
 		Video v = daovideo.read(link);
 		if (v == null) {
 			DAO.rollback();
@@ -155,6 +184,10 @@ public class Fachada {
 //--------------------------------------- ATUALIZACAO ---------------------------------------------------------
 	public static void adicionarAssunto(String link, String palavra) throws Exception {
 		DAO.begin();
+		if (palavra == null) {
+			DAO.rollback();
+			throw new Exception("Assunto nulo não pode ser adicionado!");
+		}
 		Video v = daovideo.read(link);
 		if (v == null) {
 			DAO.rollback();

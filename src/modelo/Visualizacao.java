@@ -11,7 +11,7 @@ public class Visualizacao {
 	private Video video;
 
 	public Visualizacao(int id, int nota, Usuario usuario, Video video) throws Exception {
-		if(nota > 5 || nota < 1) {
+		if (nota > 5 || nota < 1) {
 			throw new Exception("Nota invalida!");
 		}
 		this.id = id;
