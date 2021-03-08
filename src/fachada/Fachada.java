@@ -18,7 +18,7 @@ public class Fachada {
 	private static DAOAssunto daoassunto = new DAOAssunto();
 	private static DAOusuario daousuario = new DAOusuario();
 	private static DAOVisualizacao daovisualizacao = new DAOVisualizacao();
-	private static int id = 1;
+	private static int id ;
 
 	public static void inicializar() {
 		DAO.open();
@@ -127,7 +127,8 @@ public class Fachada {
 			DAO.rollback();
 			throw new Exception("Video não encontrado");
 		}
-		Visualizacao visu = new Visualizacao(id++, nota, null, v);
+		id = localizarMaiorIdVisualizacao() + 1;
+		Visualizacao visu = new Visualizacao(id, nota, null, v);
 		v.adicionar(visu);
 		v.fazerMedia();
 		daovideo.update(v);
@@ -150,7 +151,8 @@ public class Fachada {
 		}
 		Usuario u = daousuario.read(email);
 		if (u != null) {
-			Visualizacao visu = new Visualizacao(id++, nota, u, v);
+			id = localizarMaiorIdVisualizacao() + 1;
+			Visualizacao visu = new Visualizacao(id, nota, u, v);
 			v.adicionar(visu);
 			v.fazerMedia();
 			daovideo.update(v);
@@ -160,8 +162,9 @@ public class Fachada {
 			DAO.commit();
 			return visu;
 		} else {
+			id = localizarMaiorIdVisualizacao() + 1;
 			Usuario usu = cadastrarUsuario(email);
-			Visualizacao visu = new Visualizacao(id++, nota, usu, v);
+			Visualizacao visu = new Visualizacao(id, nota, usu, v);
 			v.adicionar(visu);
 			v.fazerMedia();
 			daovideo.update(v);
@@ -218,6 +221,17 @@ public class Fachada {
 		throw new Exception("Não existe visualização com esse id");
 	};
 
+	public static Integer localizarMaiorIdVisualizacao() throws Exception {
+		List<Visualizacao> visu = listarVisualizacoes();
+		id = 0;
+		for (Visualizacao v : visu) {
+			if (v.getId() > id) {
+				id = v.getId();
+			}
+		}
+		return id;
+
+	};
 	public static void apagarVisualizacao(int id) throws Exception {
 		DAO.begin();
 		Visualizacao vi = daovisualizacao.read(id);
