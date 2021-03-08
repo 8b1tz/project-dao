@@ -1,9 +1,11 @@
 package aplicacao_swing;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -32,6 +34,7 @@ public class TelaListagemVideo {
 	private JTextField textField;
 	private JTable table;
 	private JScrollPane scrollPane;
+	private JButton btnAbrirLink;
 
 //    public static void main(String[] args) {
 //        EventQueue.invokeLater(new Runnable() {
@@ -80,7 +83,9 @@ public class TelaListagemVideo {
 		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "", "", "" }));
 		table.setShowGrid(true);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-
+		table.setRowHeight(30);
+		
+		
 		JButton btnNewButton = new JButton("Todos");
 		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 14));
 		btnNewButton.addActionListener(new ActionListener() {
@@ -194,6 +199,25 @@ public class TelaListagemVideo {
 		textField.setColumns(10);
 		textField.setBounds(149, 73, 264, 34);
 		frmListagemVideo.getContentPane().add(textField);
+		
+		btnAbrirLink = new JButton("Abrir Link");
+		btnAbrirLink.setFont(new Font("Verdana", Font.PLAIN, 14));
+		
+		btnAbrirLink.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow() >= 0) {
+					String url = (String) table.getValueAt(table.getSelectedRow(), 2);
+					try {
+						Desktop.getDesktop().browse(new URL(url).toURI());
+					} catch (Exception erro) {
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "selecionar uma linha");
+				}}
+		});
+		
+		btnAbrirLink.setBounds(463, 26, 101, 34);
+		frmListagemVideo.getContentPane().add(btnAbrirLink);
 
 	}
 
