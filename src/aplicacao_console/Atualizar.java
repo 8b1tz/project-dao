@@ -18,7 +18,7 @@ public class Atualizar {
 			Fachada.adicionarAssunto("https://www.youtube.com/watch?v=0-7IHOXkiV8&list=RDMMXXYlFuWEuKI&index=2",
 					"lovely");
 			Fachada.adicionarAssunto("https://www.youtube.com/watch?v=0-7IHOXkiV8&list=RDMMXXYlFuWEuKI&index=2",
-					"incrivel");
+					"rock");
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

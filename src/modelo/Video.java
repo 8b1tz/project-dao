@@ -43,6 +43,16 @@ public class Video {
 	public List<Assunto> getListaAssuntos() {
 		return assuntos;
 	}
+	
+	public String getListaAssuntosPretty() {
+		String novosassuntos = "";
+		for(Assunto assunto : getListaAssuntos()) {
+			novosassuntos += assunto.getPalavra() + " ; "; 
+		}
+		
+		return novosassuntos;
+	}
+	
 	public List<Visualizacao> getVisualizacoes(){
 		return visualizacoes;
 	}
@@ -63,7 +73,7 @@ public class Video {
 
 		texto += ", assuntos= ";
 		for (Assunto a : assuntos) {
-			texto += a.getPalavra();
+			texto += a.getPalavra() + "; ";
 		}
 		texto += "\n visualizacoes=";
 		for (Visualizacao vis : visualizacoes) {

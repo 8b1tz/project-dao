@@ -100,8 +100,7 @@ public class TelaListagemVideo {
 					List<Video> listaVideos = Fachada.listarVideos();
 
 					for (Video v : listaVideos)
-						for (Assunto a : v.getListaAssuntos())
-							model.addRow(new Object[] { v.getNome(), a.getPalavra(), v.getLink(), v.getMedia() });
+							model.addRow(new Object[] { v.getNome(), v.getListaAssuntosPretty(), v.getLink(), v.getMedia() });
 
 					table.setModel(model);
 				} catch (Exception erro) {
@@ -139,8 +138,7 @@ public class TelaListagemVideo {
 					List<Video> listaVideos = Fachada.consultarVideosPorAssunto(assunto);
 
 					for (Video v : listaVideos)
-						for (Assunto a : v.getListaAssuntos())
-							model.addRow(new Object[] { v.getNome(), a.getPalavra(), v.getLink(), v.getMedia() });
+							model.addRow(new Object[] { v.getNome(), v.getListaAssuntosPretty(), v.getLink(), v.getMedia() });
 
 					table.setModel(model);
 				} catch (Exception erro) {
@@ -171,8 +169,7 @@ public class TelaListagemVideo {
 					List<Video> listaVideos = Fachada.consultarVideosPorUsuario(usuario);
 
 					for (Video v : listaVideos)
-						for (Assunto a : v.getListaAssuntos())
-							model.addRow(new Object[] { v.getNome(), a.getPalavra(), v.getLink(), v.getMedia() });
+							model.addRow(new Object[] { v.getNome(), v.getListaAssuntosPretty(), v.getLink(), v.getMedia() });
 
 					table.setModel(model);
 				} catch (Exception erro) {
