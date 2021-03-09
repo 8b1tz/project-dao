@@ -93,18 +93,23 @@ public class TelaCadastroVideo extends JFrame {
 		JButton buttonCadastrar = new JButton("Cadastrar");
 		buttonCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
+				
 					if (palavra.getText() != null) {
-						Fachada.cadastrarVideo(link.getText(), nome.getText(), palavra.getText());
-						saida.setText("Cadastro do vídeo " + nome.getText() + " com sucesso!");
-					} else {
-						Fachada.cadastrarVideo(link.getText(), nome.getText());
-						saida.setText("Cadastro do vídeo " + nome.getText() + " com sucesso!");
+						try {
+							Fachada.cadastrarVideo(link.getText(), nome.getText(), palavra.getText());
+							saida.setText("Sucesso no Cadastro !!");
+						}catch (Exception e2) {
+							saida.setText(e2.getMessage());
+						}
+						} else {
+						try {
+							Fachada.cadastrarVideo(link.getText(), nome.getText());
+							saida.setText("Sucesso no Cadastro !!");
+						}catch (Exception e3) {
+							saida.setText(e3.getMessage());
+						}
 					}
-				} catch (Exception e1) {
-					saida.setText(e1.getMessage());
-					e1.printStackTrace();
-				}
+				
 			}
 		});
 		buttonCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 18));

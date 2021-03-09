@@ -72,7 +72,7 @@ public class TelaListagemVisualizacao {
 		frmListagemVisu.getContentPane().add(scrollPane);
 
 		table = new JTable();
-		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
 
 		table.setGridColor(Color.BLACK);
 		table.setRequestFocusEnabled(false);

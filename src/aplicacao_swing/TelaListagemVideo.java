@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import fachada.Fachada;
 import modelo.Assunto;
+import modelo.Usuario;
 import modelo.Video;
 import java.awt.Toolkit;
 import javax.swing.JTable;
@@ -30,7 +31,6 @@ public class TelaListagemVideo {
 	 */
 	// private static final long serialVersionUID = 1L;
 	private JFrame frmListagemVideo;
-	private JTextField textField_1;
 	private JTextField textField;
 	private JTable table;
 	private JScrollPane scrollPane;
@@ -66,7 +66,7 @@ public class TelaListagemVideo {
 		frmListagemVideo.getContentPane().setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 183, 554, 257);
+		scrollPane.setBounds(10, 116, 554, 324);
 		frmListagemVideo.getContentPane().add(scrollPane);
 
 		table = new JTable();
@@ -110,13 +110,8 @@ public class TelaListagemVideo {
 
 		});
 
-		btnNewButton.setBounds(20, 26, 101, 34);
+		btnNewButton.setBounds(21, 11, 101, 34);
 		frmListagemVideo.getContentPane().add(btnNewButton);
-
-		JLabel lblNewLabel = new JLabel("Listar Videos por ... ");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
-		lblNewLabel.setBounds(10, 0, 162, 28);
-		frmListagemVideo.getContentPane().add(lblNewLabel);
 
 		JButton btnAssunto = new JButton("Assunto");
 		btnAssunto.setFont(new Font("Verdana", Font.PLAIN, 14));
@@ -146,14 +141,14 @@ public class TelaListagemVideo {
 				}
 			}
 		});
-		btnAssunto.setBounds(21, 71, 101, 34);
+		btnAssunto.setBounds(352, 26, 101, 34);
 		frmListagemVideo.getContentPane().add(btnAssunto);
 
 		JButton btnUsuario = new JButton("Usuario");
 		btnUsuario.setFont(new Font("Verdana", Font.PLAIN, 14));
 		btnUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String usuario = textField_1.getText();
+				String usuario = textField.getText();
 				ListaVideosUsuario(usuario);
 			}
 
@@ -184,17 +179,12 @@ public class TelaListagemVideo {
 		btnAssunto.setBounds(21, 71, 101, 34);
 		frmListagemVideo.getContentPane().add(btnAssunto);
 
-		btnUsuario.setBounds(21, 116, 101, 34);
+		btnUsuario.setBounds(246, 26, 101, 34);
 		frmListagemVideo.getContentPane().add(btnUsuario);
-
-		textField_1 = new JTextField();
-		textField_1.setBounds(149, 116, 264, 34);
-		frmListagemVideo.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
 
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(149, 73, 264, 34);
+		textField.setBounds(132, 73, 216, 34);
 		frmListagemVideo.getContentPane().add(textField);
 		
 		btnAbrirLink = new JButton("Abrir Link");
@@ -213,8 +203,40 @@ public class TelaListagemVideo {
 				}}
 		});
 		
-		btnAbrirLink.setBounds(463, 26, 101, 34);
+		btnAbrirLink.setBounds(461, 26, 101, 34);
 		frmListagemVideo.getContentPane().add(btnAbrirLink);
+		
+		JButton btnUsuario_1 = new JButton("Link");
+		btnUsuario_1.setFont(new Font("Verdana", Font.PLAIN, 14));
+		
+		btnUsuario_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String link = textField.getText();
+				ListaUsuariosPorLink(link);
+				}
+			
+			private void ListaUsuariosPorLink(String link) {
+
+				try {
+					DefaultTableModel model = new DefaultTableModel();
+					model.addColumn("Email");
+					
+
+					List<Usuario> listausUsuarios = Fachada.consultarUsuariosPorVideo(link);
+
+					for (Usuario u : listausUsuarios)
+							model.addRow(new Object[] { u.getEmail() });
+
+					table.setModel(model);
+				} catch (Exception erro) {
+					JOptionPane.showMessageDialog(frmListagemVideo, erro.getMessage());
+				}
+			}
+			
+		});
+		
+		btnUsuario_1.setBounds(135, 26, 101, 34);
+		frmListagemVideo.getContentPane().add(btnUsuario_1);
 
 	}
 
