@@ -132,7 +132,7 @@ public class Fachada {
 		v.adicionar(visu);
 		v.fazerMedia();
 		daovideo.update(v);
-		daovideo.create(v);
+		
 		daovisualizacao.create(visu);
 		DAO.commit();
 		return visu;
@@ -156,6 +156,7 @@ public class Fachada {
 			v.adicionar(visu);
 			v.fazerMedia();
 			daovideo.update(v);
+			
 			u.adicionar(visu);
 			daousuario.update(u);
 			daovisualizacao.create(visu);
@@ -171,7 +172,7 @@ public class Fachada {
 			daovideo.create(v);
 			usu.adicionar(visu);
 			daousuario.update(usu);
-			daousuario.create(usu);
+			
 			daovisualizacao.create(visu);
 			DAO.commit();
 			return visu;
@@ -323,7 +324,7 @@ public class Fachada {
 			}
 		}
 		if (existe == false) {
-			throw new Exception("Link {   " + link + "     } nao existe ");
+			throw new Exception("Link {   " + link + "     } nao tem visualizaçoes ");
 		}
 		return lista;
 	}
